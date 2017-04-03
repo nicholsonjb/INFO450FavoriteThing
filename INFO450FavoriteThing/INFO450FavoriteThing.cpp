@@ -46,6 +46,7 @@ public:
 	void showInventoryBeerList();
 	int saveInventoryBeerList(string filename);
 	int readInventoryBeerList(string filename);
+	int captureNewInventoryBeerItem();
 };
 
 
