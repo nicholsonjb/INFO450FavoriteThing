@@ -143,7 +143,7 @@ int inventoryBeerList::reallocateArray()
 	return 0;
 }
 
-//Get User Input
+//Get User Input --Will need addtional work
 void inventoryBeerList::getUserInput()
 {
 	string ans = "Y";
@@ -158,6 +158,32 @@ void inventoryBeerList::getUserInput()
 		getline(cin, ans);
 	}
 }
+
+//Show beer list to console
+void inventoryBeerList::showInventoryBeerList()
+{
+	
+}
+
+
+//Save list to file
+int inventoryBeerList::saveInventoryBeerList(string filename)
+{
+	
+}
+
+//Read beer list from a file
+int inventoryBeerList::readInventoryBeerList(string filename)
+{
+	
+}
+
+//Capture new beer
+int inventoryBeerList::captureNewInventoryBeerItem()
+{
+	
+}
+
 
 
 
