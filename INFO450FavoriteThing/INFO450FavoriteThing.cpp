@@ -11,26 +11,31 @@ const int READERROR = 100;
 const int WRITEERROR = 200;
 const int ARRAYSIZE = 100;
 
+//Beer Inventory Class
 class inventoryBeer
 {
-	string beerNumber;
+	
 	string beerName;
-	string beerBrewery;
+	string beerStyle;
 	string alocholContent;
+	string beerBrewery;
+	string beerLocation;
 	string beerRating;
 	
 
 public:
 	inventoryBeer();
-	inventoryBeer(string num, string name, string brewer, string rate, string alc);
-	void captureInventoryBeer();
-	void showInventoryBeer();
-	int saveInventoryBeer(ofstream& outfile);
+	inventoryBeer(string name, string style, string alc, string brewer, string loc, string rate );
+	void captureInventoryBeerItem();
+	void showInventoryBeerItem();
+	int saveInventoryBeerItem(ofstream& outfile);
 };
+
+//Beer Inventory List Class
 
 class inventoryBeerList
 {
-	inventoryBeerList** list;
+	inventoryBeer** list;
 	int numrecords;
 	int listsize;
 	int reallocateArray();
@@ -44,7 +49,53 @@ public:
 };
 
 
+//default constructor - intialized empty
+inventoryBeer::inventoryBeer()
+{
+	beerName = "";
+	beerStyle = "";
+	alocholContent = "";
+	beerBrewery = "";
+	beerLocation = "";
+	beerRating = "";
 
+}
+
+//overload constructor intilaized with values
+inventoryBeer::inventoryBeer(std::string name, std::string style, std::string alc, std::string brewer, std::string loc, std::string rate)
+{
+
+	beerName = name;
+	beerStyle = style;
+	alocholContent = alc;
+	beerBrewery = brewer;
+	beerLocation = loc;
+	beerRating = rate;
+}
+
+//Capture beer from end users
+void inventoryBeer::captureInventoryBeerItem()
+{
+	cout << "Beer Name --";
+	getline(cin, beerName);
+	cout << "Beer Style --";
+	getline(cin, beerStyle);
+	cout << "ABV --";
+	getline(cin, alocholContent);
+	cout << "Beer Brewery --";
+	getline(cin, beerBrewery);
+	cout << "Beer Location --";
+	getline(cin, beerLocation);
+	cout << "Beer Rating --";
+	getline(cin, beerRating);
+}
+
+//Display beer to console
+void inventoryBeer::showInventoryBeerItem()
+{
+	cout << "Name : " << beerName << " Beer Style : " << beerStyle << "ABV : " << alocholContent
+		<< "Brewery : " << beerBrewery << "Location : " << beerLocation << "Rating : " << beerRating << endl;
+}
 
 int main()
 {
