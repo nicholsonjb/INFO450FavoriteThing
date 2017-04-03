@@ -14,18 +14,17 @@ const int ARRAYSIZE = 100;
 //Beer Inventory Class
 class inventoryBeer
 {
-	
 	string beerName;
 	string beerStyle;
 	string alocholContent;
 	string beerBrewery;
 	string beerLocation;
 	string beerRating;
-	
+
 
 public:
 	inventoryBeer();
-	inventoryBeer(string name, string style, string alc, string brewer, string loc, string rate );
+	inventoryBeer(string name, string style, string alc, string brewer, string loc, string rate);
 	void captureInventoryBeerItem();
 	void showInventoryBeerItem();
 	int saveInventoryBeerItem(ofstream& outfile);
@@ -43,10 +42,10 @@ public:
 	inventoryBeerList();
 	~inventoryBeerList();
 	void getUserInput();
-	void showInventoryBeerList();
+	void showInventoryBeerList();`
 	int saveInventoryBeerList(string filename);
 	int readInventoryBeerList(string filename);
-	int captureNewInventoryBeerItem();
+	int captureNewInventoryBeerItem(); //this checks for duplicates by name
 };
 
 
@@ -59,13 +58,11 @@ inventoryBeer::inventoryBeer()
 	beerBrewery = "";
 	beerLocation = "";
 	beerRating = "";
-
 }
 
 //overload constructor intilaized with values
 inventoryBeer::inventoryBeer(std::string name, std::string style, std::string alc, std::string brewer, std::string loc, std::string rate)
 {
-
 	beerName = name;
 	beerStyle = style;
 	alocholContent = alc;
@@ -113,11 +110,7 @@ int inventoryBeer::saveInventoryBeerItem(ofstream& outfile)
 }
 
 
-
-
-
 int main()
 {
-    return 0;
+	return 0;
 }
-
