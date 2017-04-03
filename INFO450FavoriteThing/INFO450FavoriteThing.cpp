@@ -109,6 +109,24 @@ int inventoryBeer::saveInventoryBeerItem(ofstream& outfile)
 		return WRITEERROR;
 }
 
+//Beer inventory List Constructor - allocate space for the array
+inventoryBeerList::inventoryBeerList()
+{
+	list = new inventoryBeer*[ARRAYSIZE];
+	numrecords = 0;
+	listsize = ARRAYSIZE;
+}
+
+//Deconstructor - free allocated memeory
+inventoryBeerList::~inventoryBeerList()
+{
+	for (int i = 0; i < numrecords; i++)
+	{
+		delete list[i];
+	}
+	delete[]list;
+}
+
 
 int main()
 {
