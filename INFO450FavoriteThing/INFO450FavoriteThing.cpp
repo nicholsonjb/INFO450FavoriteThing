@@ -13,13 +13,24 @@ const int ARRAYSIZE = 100;
 
 class inventoryBeer
 {
+	string beerNumber;
 	string beerName;
 	string beerBrewery;
 	string beerRating;
 	string alocholContent;
+
+public:
+	inventoryBeer();
+	inventoryBeer(string num, string name, string brewer, string rate, string alc);
+	void CaptureInventoryBeer();
+	void ShowInventoryBeer();
+	int SaveInventoryBeer(ofstream& outfile);
 };
 
-
+class inventoryBeerList
+{
+	
+};
 int main()
 {
     return 0;
