@@ -16,21 +16,36 @@ class inventoryBeer
 	string beerNumber;
 	string beerName;
 	string beerBrewery;
-	string beerRating;
 	string alocholContent;
+	string beerRating;
+	
 
 public:
 	inventoryBeer();
 	inventoryBeer(string num, string name, string brewer, string rate, string alc);
-	void CaptureInventoryBeer();
-	void ShowInventoryBeer();
-	int SaveInventoryBeer(ofstream& outfile);
+	void captureInventoryBeer();
+	void showInventoryBeer();
+	int saveInventoryBeer(ofstream& outfile);
 };
 
 class inventoryBeerList
 {
-	
+	inventoryBeerList** list;
+	int numrecords;
+	int listsize;
+	int reallocateArray();
+public:
+	inventoryBeerList();
+	~inventoryBeerList();
+	void getUserInput();
+	void showInventoryBeerList();
+	int saveInventoryBeerList(string filename);
+	int readInventoryBeerList(string filename);
 };
+
+
+
+
 int main()
 {
     return 0;
