@@ -127,6 +127,39 @@ inventoryBeerList::~inventoryBeerList()
 	delete[]list;
 }
 
+//Reallocate memory if already at capacity
+int inventoryBeerList::reallocateArray()
+{
+	inventoryBeer **temp;
+	temp = new inventoryBeer*[listsize + ARRAYSIZE];
+	listsize = listsize + ARRAYSIZE;
+	for (int i = 0; i < numrecords;i++)
+	{
+		temp[i] = list[i];
+
+	}
+	delete[]list;
+	list = temp;
+	return 0;
+}
+
+//Get User Input
+void inventoryBeerList::getUserInput()
+{
+	string ans = "Y";
+	cout << "Enter Beer Y/N?" << endl;
+	getline(cin, ans);
+	while (ans == "y" || ans == "Y")
+	{
+		list[numrecords] = new inventoryBeer();
+		list[numrecords]->captureInventoryBeerItem();
+		numrecords++;
+		cout << "Enter another Beer? Y/N?" << endl;
+		getline(cin, ans);
+	}
+}
+
+
 
 int main()
 {
