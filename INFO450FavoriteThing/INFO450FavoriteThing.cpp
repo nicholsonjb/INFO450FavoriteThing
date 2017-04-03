@@ -97,6 +97,24 @@ void inventoryBeer::showInventoryBeerItem()
 		<< "Brewery : " << beerBrewery << "Location : " << beerLocation << "Rating : " << beerRating << endl;
 }
 
+
+//Save beer item to given input file stream
+int inventoryBeer::saveInventoryBeerItem(ofstream& outfile)
+{
+	if (outfile.is_open())
+	{
+		outfile << beerName << "|" << beerStyle << "|" << alocholContent << "|" << beerBrewery << "|" << beerLocation << "|"
+			<< beerRating << endl;
+		return 0;
+	}
+	else
+		return WRITEERROR;
+}
+
+
+
+
+
 int main()
 {
     return 0;
