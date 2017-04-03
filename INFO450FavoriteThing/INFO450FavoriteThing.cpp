@@ -42,7 +42,7 @@ public:
 	inventoryBeerList();
 	~inventoryBeerList();
 	void getUserInput();
-	void showInventoryBeerList();`
+	void showInventoryBeerList();
 	int saveInventoryBeerList(string filename);
 	int readInventoryBeerList(string filename);
 	int captureNewInventoryBeerItem(); //this checks for duplicates by name
