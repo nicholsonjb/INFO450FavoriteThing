@@ -239,11 +239,16 @@ int main()
 	inventoryBeerList myInventory;
 
 	string filename;
-	cout << "Enter the full path of the file" << endl;
+	cout << "Welcome to The Beer Club Craft Beer Tracker!" << endl;
+	cout << "To access the list text file. Use the file path where the text file" << endl;
+    cout << "is stored on your machine. Ex. C:\\Projects\\BrewList.txt" << endl;
+
+	cout << "Enter the full path of the file: " << endl;
 	getline(cin, filename);
 	ifstream file(filename.c_str());
 	
-	if (!file) {
+	if (!file) 
+	{
 		cout << "Error while opening the file" << endl;
 		return 1;
 	}
