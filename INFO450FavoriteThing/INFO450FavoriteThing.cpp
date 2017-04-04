@@ -77,17 +77,17 @@ inventoryBeer::inventoryBeer(std::string name, std::string style, std::string al
 //Capture beer from end users
 void inventoryBeer::captureInventoryBeerItem()
 {
-	cout << "Beer Name --";
+	cout << "Beer Name -->";
 	getline(cin, beerName);
-	cout << "Beer Style --";
+	cout << "Beer Style -->";
 	getline(cin, beerStyle);
-	cout << "ABV --";
+	cout << "ABV -->";
 	getline(cin, alocholContent);
-	cout << "Beer Brewery --";
+	cout << "Beer Brewery -->";
 	getline(cin, beerBrewery);
-	cout << "Beer Location --";
+	cout << "Beer Location -->";
 	getline(cin, beerLocation);
-	cout << "Beer Rating --";
+	cout << "Beer Rating -->";
 	getline(cin, beerRating);
 }
 
@@ -133,13 +133,12 @@ inventoryBeerList::~inventoryBeerList()
 //Reallocate memory if already at capacity
 int inventoryBeerList::reallocateArray()
 {
-	inventoryBeer **temp;
+	inventoryBeer** temp;
 	temp = new inventoryBeer*[listsize + ARRAYSIZE];
 	listsize = listsize + ARRAYSIZE;
-	for (int i = 0; i < numrecords;i++)
+	for (int i = 0; i < numrecords; i++)
 	{
 		temp[i] = list[i];
-
 	}
 	delete[]list;
 	list = temp;
@@ -165,7 +164,7 @@ void inventoryBeerList::getUserInput()
 //Show beer list to console
 void inventoryBeerList::showInventoryBeerList()
 {
-	for  (int i = 0; i < numrecords;i++)
+	for (int i = 0; i < numrecords; i++)
 	{
 		list[i]->showInventoryBeerItem();
 	}
@@ -188,7 +187,7 @@ int inventoryBeerList::saveInventoryBeerList(string filename)
 	{
 		return WRITEERROR;
 	}
-	
+
 	return 0;
 }
 
@@ -197,24 +196,24 @@ int inventoryBeerList::readInventoryBeerList(string filename)
 {
 	string iname, istyle, ialc, ibrew, iloc, irate;
 	ifstream infile(filename, ios::in);
-	if(!infile)
+	if (!infile)
 	{
 		cout << "File could not be opened" << endl;
 		return READERROR;
 	}
-	while(!infile.eof())
+	while (!infile.eof())
 	{
 		if (numrecords == listsize)
 		{
 			reallocateArray();
 		}
 		getline(infile, iname, '|');
-		if(!iname.empty())
+		if (!iname.empty())
 		{
 			getline(infile, istyle, '|');
 			getline(infile, ialc, '|');
 			getline(infile, ibrew, '|');
-			getline(infile, iloc , '|');
+			getline(infile, iloc, '|');
 			getline(infile, irate);
 			list[numrecords] = new inventoryBeer(iname, istyle, ialc, ibrew, iloc, irate);
 			numrecords++;
@@ -232,8 +231,6 @@ int inventoryBeerList::readInventoryBeerList(string filename)
 //}
 
 
-
-
 int main()
 {
 	inventoryBeerList myInventory;
@@ -241,13 +238,13 @@ int main()
 	string filename;
 	cout << "Welcome to The Beer Club Craft Beer Tracker!" << endl;
 	cout << "To access the list text file. Use the file path where the text file" << endl;
-    cout << "is stored on your machine. Ex. C:\\Projects\\BrewList.txt" << endl;
+	cout << "is stored on your machine. Ex. C:\\Projects\\BrewList.txt" << endl;
 
 	cout << "Enter the full path of the file: " << endl;
 	getline(cin, filename);
 	ifstream file(filename.c_str());
-	
-	if (!file) 
+
+	if (!file)
 	{
 		cout << "Error while opening the file" << endl;
 		return 1;
@@ -256,54 +253,49 @@ int main()
 	myInventory.saveInventoryBeerList(filename);
 	myInventory.showInventoryBeerList();
 	return 0;
-	}
-	/*	char filename[100];
+}
 
-		ifstream inputfile;
+/*	char filename[100];
+
+	ifstream inputfile;
+
+
 	
-	
-		
-		cout << "Enter the full file name to be open: ";
-		cin >> filename;
-	
-		inputfile.open(filename, ios::in);
-		if(inputfile.fail())
-		{
-			cout << "Opening " << filename << " for reading\n";
-			cout << "------------------------------------\n";
-			cout << "The " << filename << " file could be opened!\n";
-			cout << "Possible errors: \n";
-			cout << "1. The file does not exist.\n";
-			cout << "2. The path was not found.\n";
-			exit(1);
-		}
-		
-		else
-		{
-			cout << "The " << filename << "file was opened successufly\n";
-			myInventory.getUserInput();
-			myInventory.saveInventoryBeerList(filename);
-			myInventory.showInventoryBeerList();
-		}
-		
-		inputfile.close();
-	
+	cout << "Enter the full file name to be open: ";
+	cin >> filename;
+
+	inputfile.open(filename, ios::in);
 	if(inputfile.fail())
 	{
-		cout << "\nThe file " << filename << "could not be closed!\n";
+		cout << "Opening " << filename << " for reading\n";
+		cout << "------------------------------------\n";
+		cout << "The " << filename << " file could be opened!\n";
+		cout << "Possible errors: \n";
+		cout << "1. The file does not exist.\n";
+		cout << "2. The path was not found.\n";
 		exit(1);
 	}
+	
 	else
 	{
-	cout << "\nThe " << filename << " file was closed successfully!\n";
-	}*/
-
+		cout << "The " << filename << "file was opened successufly\n";
+		myInventory.getUserInput();
+		myInventory.saveInventoryBeerList(filename);
+		myInventory.showInventoryBeerList();
+	}
 	
+	inputfile.close();
+
+if(inputfile.fail())
+{
+	cout << "\nThe file " << filename << "could not be closed!\n";
+	exit(1);
+}
+else
+{
+cout << "\nThe " << filename << " file was closed successfully!\n";
+}*/
+
+
 //	return 0;
 //}
-
-
-
-
-	
-	
