@@ -162,32 +162,80 @@ void inventoryBeerList::getUserInput()
 //Show beer list to console
 void inventoryBeerList::showInventoryBeerList()
 {
-	
+	for  (int i = 0; i < numrecords;i++)
+	{
+		list[i]->showInventoryBeerItem();
+	}
 }
 
 
 //Save list to file
 int inventoryBeerList::saveInventoryBeerList(string filename)
 {
+	ofstream output(filename, ios::trunc);
+	if (output)
+	{
+		for (int i = 0; i < numrecords; i++)
+		{
+			list[i]->saveInventoryBeerItem(output);
+		}
+		output.close();
+	}
+	else
+	{
+		return WRITEERROR;
+	}
 	
+	return 0;
 }
 
 //Read beer list from a file
 int inventoryBeerList::readInventoryBeerList(string filename)
 {
-	
+	string iname, istyle, ialc, ibrew, iloc, irate;
+	ifstream infile(filename, ios::in);
+	if(!infile)
+	{
+		cout << "File could not be opened" << endl;
+		return READERROR;
+	}
+	while(!infile.eof())
+	{
+		if (numrecords == listsize)
+		{
+			reallocateArray();
+		}
+		getline(infile, iname, '|');
+		if(!iname.empty())
+		{
+			getline(infile, istyle, '|');
+			getline(infile, ialc, '|');
+			getline(infile, ibrew, '|');
+			getline(infile, iloc , '|');
+			getline(infile, irate);
+			list[numrecords] = new inventoryBeer(iname, istyle, ialc, ibrew, iloc, irate);
+			numrecords++;
+		}
+	}
+	infile.close();
+	return 0;
 }
 
+
 //Capture new beer
-int inventoryBeerList::captureNewInventoryBeerItem()
-{
-	
-}
+//int inventoryBeerList::captureNewInventoryBeerItem()
+//{
+//	
+//}
 
 
 
 
 int main()
 {
+	
+	
+	
+	
 	return 0;
 }
