@@ -5,6 +5,9 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <windows.h>
+#include <conio.h>
+
 using namespace std;
 
 const int READERROR = 100;
@@ -233,49 +236,69 @@ int inventoryBeerList::readInventoryBeerList(string filename)
 
 int main()
 {
-	char filename[100];
 	inventoryBeerList myInventory;
-	ifstream inputfile;
 
-	/*cout << "Please enter full file path to open file: ";*/
+	string filename;
+	cout << "Enter the full path of the file" << endl;
+	getline(cin, filename);
+	ifstream file(filename.c_str());
 	
-	cout << "Enter the file name to be open: ";
-	cin >> filename;
+	if (!file) {
+		cout << "Error while opening the file" << endl;
+		return 1;
+	}
+	myInventory.getUserInput();
+	myInventory.saveInventoryBeerList(filename);
+	myInventory.showInventoryBeerList();
+	return 0;
+	}
+	/*	char filename[100];
 
-	inputfile.open(filename, ios::in);
+		ifstream inputfile;
+	
+	
+		
+		cout << "Enter the full file name to be open: ";
+		cin >> filename;
+	
+		inputfile.open(filename, ios::in);
+		if(inputfile.fail())
+		{
+			cout << "Opening " << filename << " for reading\n";
+			cout << "------------------------------------\n";
+			cout << "The " << filename << " file could be opened!\n";
+			cout << "Possible errors: \n";
+			cout << "1. The file does not exist.\n";
+			cout << "2. The path was not found.\n";
+			exit(1);
+		}
+		
+		else
+		{
+			cout << "The " << filename << "file was opened successufly\n";
+			myInventory.getUserInput();
+			myInventory.saveInventoryBeerList(filename);
+			myInventory.showInventoryBeerList();
+		}
+		
+		inputfile.close();
+	
 	if(inputfile.fail())
 	{
-		cout << "Opening " << filename << " for reading\n";
-		cout << "------------------------------------\n";
-		cout << "The " << filename << " file could be opened!\n";
-		cout << "Possible errors: \n";
-		cout << "1. The file does not exist.\n";
-		cout << "2. The path was not found.\n";
+		cout << "\nThe file " << filename << "could not be closed!\n";
 		exit(1);
 	}
-	
 	else
 	{
-		cout << "The " << filename << "file was opened successufly\n";
-	}
-	inputfile.close();
-if(inputfile.fail())
-{
-	cout << "\nThe file " << filename << "could not be closed!\n";
-	exit(1);
-}
-else
-{
-cout << "\nThe " << filename << " file was closed successfully!\n";
-}
+	cout << "\nThe " << filename << " file was closed successfully!\n";
+	}*/
+
+	
+//	return 0;
+//}
 
 
-
-myInventory.getUserInput();
-myInventory.saveInventoryBeerList(filename);
-myInventory.showInventoryBeerList();
 
 
 	
-	return 0;
-}
+	
