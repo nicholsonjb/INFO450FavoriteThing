@@ -94,8 +94,9 @@ void inventoryBeer::captureInventoryBeerItem()
 //Display beer to console
 void inventoryBeer::showInventoryBeerItem()
 {
-	cout << "Name : " << beerName << " Beer Style : " << beerStyle << "ABV : " << alocholContent
-		<< "Brewery : " << beerBrewery << "Location : " << beerLocation << "Rating : " << beerRating << endl;
+	cout << "-----------------------\n";
+	cout << "Name: " << beerName << "\nBeer Style: " << beerStyle << "\nABV: " << alocholContent
+		<< "\nBrewery: " << beerBrewery << "\nLocation: " << beerLocation << "\nRating: " << beerRating << endl;
 }
 
 
