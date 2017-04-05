@@ -149,13 +149,17 @@ int inventoryBeerList::reallocateArray()
 //Get User Input --Will need addtional work
 void inventoryBeerList::getUserInput()
 {
+	
 	string ans = "Y";
 	cout << "Enter Beer Y/N?" << endl;
 	getline(cin, ans);
+	
+
 	while (ans == "y" || ans == "Y")
 	{
-		list[numrecords] = new inventoryBeer();
-		list[numrecords]->captureInventoryBeerItem();
+		
+		//list[numrecords] = new inventoryBeer();
+		//list[numrecords]->captureInventoryBeerItem();
 		numrecords++;
 		cout << "Enter another Beer? Y/N?" << endl;
 		getline(cin, ans);
@@ -228,15 +232,11 @@ int inventoryBeerList::readInventoryBeerList(string filename)
 
 
 ////check for duplicates
-////int inventoryBeerList::duplicateInventoryBeerItem()
-////{
-////	for (int  i = 0; i < numrecords; i++)
-//{
-//	if (!list[i])
-//		count++;
-//	cout << "This is a dupplicate";
-//}
-////}
+int inventoryBeerList::duplicateInventoryBeerItem()
+{
+
+}
+
 
 
 int main()
