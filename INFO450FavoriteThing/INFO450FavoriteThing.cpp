@@ -48,7 +48,7 @@ public:
 	void showInventoryBeerList();
 	int saveInventoryBeerList(string filename);
 	int readInventoryBeerList(string filename);
-	int captureNewInventoryBeerItem(); //this checks for duplicates by name
+	int duplicateInventoryBeerItem(); //this checks for duplicates by name
 };
 
 
@@ -196,6 +196,7 @@ int inventoryBeerList::saveInventoryBeerList(string filename)
 int inventoryBeerList::readInventoryBeerList(string filename)
 {
 	string iname, istyle, ialc, ibrew, iloc, irate;
+	int count = 0;
 	ifstream infile(filename, ios::in);
 	if (!infile)
 	{
@@ -219,17 +220,23 @@ int inventoryBeerList::readInventoryBeerList(string filename)
 			list[numrecords] = new inventoryBeer(iname, istyle, ialc, ibrew, iloc, irate);
 			numrecords++;
 		}
+		
 	}
 	infile.close();
 	return 0;
 }
 
 
-//Capture new beer
-//int inventoryBeerList::captureNewInventoryBeerItem()
+////check for duplicates
+////int inventoryBeerList::duplicateInventoryBeerItem()
+////{
+////	for (int  i = 0; i < numrecords; i++)
 //{
-//	
+//	if (!list[i])
+//		count++;
+//	cout << "This is a dupplicate";
 //}
+////}
 
 
 int main()
