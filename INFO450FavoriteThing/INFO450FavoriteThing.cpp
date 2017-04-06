@@ -236,7 +236,6 @@ int inventoryBeerList::readInventoryBeerList(string filename)
 
 
 
-
 int main()
 {
 	inventoryBeerList myInventory;
@@ -261,47 +260,4 @@ int main()
 	return 0;
 }
 
-/*	char filename[100];
 
-	ifstream inputfile;
-
-
-	
-	cout << "Enter the full file name to be open: ";
-	cin >> filename;
-
-	inputfile.open(filename, ios::in);
-	if(inputfile.fail())
-	{
-		cout << "Opening " << filename << " for reading\n";
-		cout << "------------------------------------\n";
-		cout << "The " << filename << " file could be opened!\n";
-		cout << "Possible errors: \n";
-		cout << "1. The file does not exist.\n";
-		cout << "2. The path was not found.\n";
-		exit(1);
-	}
-	
-	else
-	{
-		cout << "The " << filename << "file was opened successufly\n";
-		myInventory.getUserInput();
-		myInventory.saveInventoryBeerList(filename);
-		myInventory.showInventoryBeerList();
-	}
-	
-	inputfile.close();
-
-if(inputfile.fail())
-{
-	cout << "\nThe file " << filename << "could not be closed!\n";
-	exit(1);
-}
-else
-{
-cout << "\nThe " << filename << " file was closed successfully!\n";
-}*/
-
-
-//	return 0;
-//}
