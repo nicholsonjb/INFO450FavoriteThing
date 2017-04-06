@@ -14,8 +14,8 @@ const int READERROR = 100;
 const int WRITEERROR = 200;
 const int ARRAYSIZE = 100;
 
-//Beer Inventory Class
-class inventoryBeer
+//Beer  Class
+class Beer
 {
 	string beerName;
 	string beerStyle;
@@ -26,34 +26,35 @@ class inventoryBeer
 
 
 public:
-	inventoryBeer();
-	inventoryBeer(string name, string style, string alc, string brewer, string loc, string rate);
-	void captureInventoryBeerItem();
-	void showInventoryBeerItem();
-	int saveInventoryBeerItem(ofstream& outfile);
-	int duplicateInventoryBeerItem(); //this checks for duplicates by name
+	Beer();
+	Beer(string name, string style, string alc, string brewer, string loc, string rate);
+	void captureBeerItem();
+	void showBeerItem();
+	int saveBeerItem(ofstream& outfile);
+	
 };
 
-//Beer Inventory List Class
+//Beer  List Class
 
-class inventoryBeerList
+class BeerList
 {
-	inventoryBeer** list;
+	Beer** list;
 	int numrecords;
 	int listsize;
 	int reallocateArray();
 public:
-	inventoryBeerList();
-	~inventoryBeerList();
+	BeerList();
+	~BeerList();
 	void getUserInput();
-	void showInventoryBeerList();
-	int saveInventoryBeerList(string filename);
-	int readInventoryBeerList(string filename);
+	void showBeerList();
+	int saveBeerList(string filename);
+	int readBeerList(string filename);
+	int duplicateBeerItem(string name, string brewer); //this checks for duplicates by name
 };
 
 
 //default constructor - intialized empty
-inventoryBeer::inventoryBeer()
+Beer::Beer()
 {
 	beerName = "";
 	beerStyle = "";
@@ -64,7 +65,7 @@ inventoryBeer::inventoryBeer()
 }
 
 //overload constructor intilaized with values
-inventoryBeer::inventoryBeer(string name, string style, string alc, string brewer, string loc, string rate)
+Beer::Beer(string name, string style, string alc, string brewer, string loc, string rate)
 {
 	beerName = name;
 	beerStyle = style;
@@ -75,7 +76,7 @@ inventoryBeer::inventoryBeer(string name, string style, string alc, string brewe
 }
 
 //Capture beer from end users
-void inventoryBeer::captureInventoryBeerItem()
+void Beer::captureBeerItem()
 {
 	cout << "Beer Name -->";
 	getline(cin, beerName);
@@ -92,7 +93,7 @@ void inventoryBeer::captureInventoryBeerItem()
 }
 
 //Display beer to console
-void inventoryBeer::showInventoryBeerItem()
+void Beer::showBeerItem()
 {
 	cout << "-----------------------\n";
 	cout << "Name: " << beerName << "\nBeer Style: " << beerStyle << "\nABV: " << alocholContent
@@ -101,7 +102,7 @@ void inventoryBeer::showInventoryBeerItem()
 
 
 //Save beer item to given input file stream
-int inventoryBeer::saveInventoryBeerItem(ofstream& outfile)
+int Beer::saveBeerItem(ofstream& outfile)
 {
 	if (outfile.is_open())
 	{
@@ -113,16 +114,16 @@ int inventoryBeer::saveInventoryBeerItem(ofstream& outfile)
 		return WRITEERROR;
 }
 
-//Beer inventory List Constructor - allocate space for the array
-inventoryBeerList::inventoryBeerList()
+//Beer  List Constructor - allocate space for the array
+BeerList::BeerList()
 {
-	list = new inventoryBeer*[ARRAYSIZE];
+	list = new Beer*[ARRAYSIZE];
 	numrecords = 0;
 	listsize = ARRAYSIZE;
 }
 
 //Deconstructor - free allocated memeory
-inventoryBeerList::~inventoryBeerList()
+BeerList::~BeerList()
 {
 	for (int i = 0; i < numrecords; i++)
 	{
@@ -132,10 +133,10 @@ inventoryBeerList::~inventoryBeerList()
 }
 
 //Reallocate memory if already at capacity
-int inventoryBeerList::reallocateArray()
+int BeerList::reallocateArray()
 {
-	inventoryBeer** temp;
-	temp = new inventoryBeer*[listsize + ARRAYSIZE];
+	Beer** temp;
+	temp = new Beer*[listsize + ARRAYSIZE];
 	listsize = listsize + ARRAYSIZE;
 	for (int i = 0; i < numrecords; i++)
 	{
@@ -147,53 +148,40 @@ int inventoryBeerList::reallocateArray()
 }
 
 //Get User Input --Will need addtional work
-void inventoryBeerList::getUserInput()
+void BeerList::getUserInput()
 {
-	inventoryBeer* myBeer;
-	myBeer = new inventoryBeer;
-	string ans = "Y";
-
-	/*cout << "Enter Beer Y/N?" << endl;
-	getline(cin, ans);
-	*/
-
-	do
+	string answer = "Y";
+	cout << "Enter item Y/N" << endl;
+	getline(cin, answer);
+	while (answer == "Y" || answer == "y")
 	{
-		if (!myBeer->duplicateInventoryBeerItem())
-		{
-			cout << "Dupiclate Beer found!";
-		}
-		else
-		{
-			list[numrecords] = new inventoryBeer();
-			list[numrecords]->captureInventoryBeerItem();
-			numrecords++;
-			cout << "Enter another Beer? Y/N?" << endl;
-			getline(cin, ans);
-		}
+		list[numrecords] = new Beer();
+		list[numrecords]->captureBeerItem();
+		numrecords++;
+		cout << "Enter another item Y/N" << endl;
+		getline(cin, answer);
 	}
-	while (ans == "y" || ans == "y");
 }
 
 //Show beer list to console
-void inventoryBeerList::showInventoryBeerList()
+void BeerList::showBeerList()
 {
 	for (int i = 0; i < numrecords; i++)
 	{
-		list[i]->showInventoryBeerItem();
+		list[i]->showBeerItem();
 	}
 }
 
 
 //Save list to file
-int inventoryBeerList::saveInventoryBeerList(string filename)
+int BeerList::saveBeerList(string filename)
 {
 	ofstream output(filename, ios::trunc);
 	if (output)
 	{
 		for (int i = 0; i < numrecords; i++)
 		{
-			list[i]->saveInventoryBeerItem(output);
+			list[i]->saveBeerItem(output);
 		}
 		output.close();
 	}
@@ -206,7 +194,7 @@ int inventoryBeerList::saveInventoryBeerList(string filename)
 }
 
 //Read beer list from a file
-int inventoryBeerList::readInventoryBeerList(string filename)
+int BeerList::readBeerList(string filename)
 {
 	string iname, istyle, ialc, ibrew, iloc, irate;
 	int count = 0;
@@ -230,7 +218,7 @@ int inventoryBeerList::readInventoryBeerList(string filename)
 			getline(infile, ibrew, '|');
 			getline(infile, iloc, '|');
 			getline(infile, irate);
-			list[numrecords] = new inventoryBeer(iname, istyle, ialc, ibrew, iloc, irate);
+			list[numrecords] = new Beer(iname, istyle, ialc, ibrew, iloc, irate);
 			numrecords++;
 		}
 	}
@@ -238,26 +226,15 @@ int inventoryBeerList::readInventoryBeerList(string filename)
 	return 0;
 }
 
-int inventoryBeer::duplicateInventoryBeerItem()
-{
-	captureInventoryBeerItem();
 
-	if (beerName == beerName)
-	{
-		return -1;
-	}
-	if (beerBrewery == beerBrewery)
-	{
-		return -1;
-	}
-	else
-		return 0;
-}
+
+
+
 
 
 int main()
 {
-	inventoryBeerList myInventory;
+	BeerList my;
 
 	string filename;
 	cout << "Welcome to The Beer Club Craft Beer Tracker!" << endl;
@@ -273,8 +250,8 @@ int main()
 		cout << "Error while opening the file" << endl;
 		return 1;
 	}
-	myInventory.getUserInput();
-	myInventory.saveInventoryBeerList(filename);
-	myInventory.showInventoryBeerList();
+	my.getUserInput();
+	my.saveBeerList(filename);
+	my.showBeerList();
 	return 0;
 }
