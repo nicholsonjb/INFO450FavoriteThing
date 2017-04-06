@@ -28,11 +28,10 @@ class inventoryBeer
 public:
 	inventoryBeer();
 	inventoryBeer(string name, string style, string alc, string brewer, string loc, string rate);
-	int captureInventoryBeerItem();
+	void captureInventoryBeerItem();
 	void showInventoryBeerItem();
 	int saveInventoryBeerItem(ofstream& outfile);
-	void duplicateInventoryBeerItem(); //this checks for duplicates by name
-	
+	int duplicateInventoryBeerItem(); //this checks for duplicates by name
 };
 
 //Beer Inventory List Class
@@ -50,8 +49,6 @@ public:
 	void showInventoryBeerList();
 	int saveInventoryBeerList(string filename);
 	int readInventoryBeerList(string filename);
-	
-	
 };
 
 
@@ -78,7 +75,7 @@ inventoryBeer::inventoryBeer(string name, string style, string alc, string brewe
 }
 
 //Capture beer from end users
-int inventoryBeer::captureInventoryBeerItem()
+void inventoryBeer::captureInventoryBeerItem()
 {
 	cout << "Beer Name -->";
 	getline(cin, beerName);
@@ -92,7 +89,6 @@ int inventoryBeer::captureInventoryBeerItem()
 	getline(cin, beerLocation);
 	cout << "Beer Rating -->";
 	getline(cin, beerRating);
-	return 0;
 }
 
 //Display beer to console
@@ -153,29 +149,30 @@ int inventoryBeerList::reallocateArray()
 //Get User Input --Will need addtional work
 void inventoryBeerList::getUserInput()
 {
-	inventoryBeer myBeer;
+	inventoryBeer* myBeer;
+	myBeer = new inventoryBeer;
 	string ans = "Y";
-	
-	cout << "Enter Beer Y/N?" << endl;
+
+	/*cout << "Enter Beer Y/N?" << endl;
 	getline(cin, ans);
-	
-	if(!myBeer.captureInventoryBeerItem()== myBeer.captureInventoryBeerItem())
+	*/
 
-	if (!myBeer.captureInventoryBeerItem()==myBeer.captureInventoryBeerItem())
+	do
 	{
-		
-
-	while (ans == "y" || ans == "Y")
-	{
-		
+		if (!myBeer->duplicateInventoryBeerItem())
+		{
+			cout << "Dupiclate Beer found!";
+		}
+		else
+		{
 			list[numrecords] = new inventoryBeer();
 			list[numrecords]->captureInventoryBeerItem();
 			numrecords++;
 			cout << "Enter another Beer? Y/N?" << endl;
 			getline(cin, ans);
-		
+		}
 	}
-	}
+	while (ans == "y" || ans == "y");
 }
 
 //Show beer list to console
@@ -236,15 +233,26 @@ int inventoryBeerList::readInventoryBeerList(string filename)
 			list[numrecords] = new inventoryBeer(iname, istyle, ialc, ibrew, iloc, irate);
 			numrecords++;
 		}
-		
 	}
 	infile.close();
 	return 0;
 }
 
+int inventoryBeer::duplicateInventoryBeerItem()
+{
+	captureInventoryBeerItem();
 
-
-
+	if (beerName == beerName)
+	{
+		return -1;
+	}
+	if (beerBrewery == beerBrewery)
+	{
+		return -1;
+	}
+	else
+		return 0;
+}
 
 
 int main()
@@ -270,5 +278,3 @@ int main()
 	myInventory.showInventoryBeerList();
 	return 0;
 }
-
-
