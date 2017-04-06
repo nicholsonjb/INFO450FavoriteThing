@@ -28,7 +28,7 @@ class inventoryBeer
 public:
 	inventoryBeer();
 	inventoryBeer(string name, string style, string alc, string brewer, string loc, string rate);
-	void captureInventoryBeerItem();
+	int captureInventoryBeerItem();
 	void showInventoryBeerItem();
 	int saveInventoryBeerItem(ofstream& outfile);
 	
@@ -77,7 +77,7 @@ inventoryBeer::inventoryBeer(string name, string style, string alc, string brewe
 }
 
 //Capture beer from end users
-void inventoryBeer::captureInventoryBeerItem()
+int inventoryBeer::captureInventoryBeerItem()
 {
 	cout << "Beer Name -->";
 	getline(cin, beerName);
@@ -91,6 +91,7 @@ void inventoryBeer::captureInventoryBeerItem()
 	getline(cin, beerLocation);
 	cout << "Beer Rating -->";
 	getline(cin, beerRating);
+	return 0;
 }
 
 //Display beer to console
@@ -153,7 +154,7 @@ void inventoryBeerList::getUserInput()
 {
 
 	string ans = "Y";
-	
+	inventoryBeer myBeer;
 	
 	cout << "Enter Beer Y/N?" << endl;
 	getline(cin, ans);
@@ -161,9 +162,17 @@ void inventoryBeerList::getUserInput()
 
 	while (ans == "y" || ans == "Y")
 	{
+		
+		if(myBeer.captureInventoryBeerItem() == myBeer.captureInventoryBeerItem())
+		{
+			cout << "Duplicate Item Found!";
+		}
+		else
+		{ 
 		list[numrecords] = new inventoryBeer();
 		list[numrecords]->captureInventoryBeerItem();
 		numrecords++;
+		}
 		
 		cout << "Enter another Beer? Y/N?" << endl;
 		getline(cin, ans);
