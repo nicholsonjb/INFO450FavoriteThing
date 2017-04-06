@@ -31,6 +31,7 @@ public:
 	void captureInventoryBeerItem();
 	void showInventoryBeerItem();
 	int saveInventoryBeerItem(ofstream& outfile);
+	
 };
 
 //Beer Inventory List Class
@@ -48,7 +49,8 @@ public:
 	void showInventoryBeerList();
 	int saveInventoryBeerList(string filename);
 	int readInventoryBeerList(string filename);
-	int duplicateInventoryBeerItem(); //this checks for duplicates by name
+	void duplicateInventoryBeerItem(); //this checks for duplicates by name
+	
 };
 
 
@@ -64,7 +66,7 @@ inventoryBeer::inventoryBeer()
 }
 
 //overload constructor intilaized with values
-inventoryBeer::inventoryBeer(std::string name, std::string style, std::string alc, std::string brewer, std::string loc, std::string rate)
+inventoryBeer::inventoryBeer(string name, string style, string alc, string brewer, string loc, string rate)
 {
 	beerName = name;
 	beerStyle = style;
@@ -149,18 +151,20 @@ int inventoryBeerList::reallocateArray()
 //Get User Input --Will need addtional work
 void inventoryBeerList::getUserInput()
 {
-	
+
 	string ans = "Y";
+	
+	
 	cout << "Enter Beer Y/N?" << endl;
 	getline(cin, ans);
 	
 
 	while (ans == "y" || ans == "Y")
 	{
-		
-		//list[numrecords] = new inventoryBeer();
-		//list[numrecords]->captureInventoryBeerItem();
+		list[numrecords] = new inventoryBeer();
+		list[numrecords]->captureInventoryBeerItem();
 		numrecords++;
+		
 		cout << "Enter another Beer? Y/N?" << endl;
 		getline(cin, ans);
 	}
@@ -230,12 +234,6 @@ int inventoryBeerList::readInventoryBeerList(string filename)
 	return 0;
 }
 
-
-////check for duplicates
-int inventoryBeerList::duplicateInventoryBeerItem()
-{
-
-}
 
 
 
