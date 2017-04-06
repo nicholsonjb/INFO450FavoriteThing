@@ -28,9 +28,10 @@ class inventoryBeer
 public:
 	inventoryBeer();
 	inventoryBeer(string name, string style, string alc, string brewer, string loc, string rate);
-	int captureInventoryBeerItem();
+	void captureInventoryBeerItem();
 	void showInventoryBeerItem();
 	int saveInventoryBeerItem(ofstream& outfile);
+	void duplicateInventoryBeerItem(); //this checks for duplicates by name
 	
 };
 
@@ -49,7 +50,7 @@ public:
 	void showInventoryBeerList();
 	int saveInventoryBeerList(string filename);
 	int readInventoryBeerList(string filename);
-	void duplicateInventoryBeerItem(); //this checks for duplicates by name
+	
 	
 };
 
@@ -77,7 +78,7 @@ inventoryBeer::inventoryBeer(string name, string style, string alc, string brewe
 }
 
 //Capture beer from end users
-int inventoryBeer::captureInventoryBeerItem()
+void inventoryBeer::captureInventoryBeerItem()
 {
 	cout << "Beer Name -->";
 	getline(cin, beerName);
@@ -154,28 +155,28 @@ void inventoryBeerList::getUserInput()
 {
 
 	string ans = "Y";
-	inventoryBeer myBeer;
-	
+	inventoryBeer *myBeer;
+	myBeer = new inventoryBeer;
+	myBeer->captureInventoryBeerItem();
+
 	cout << "Enter Beer Y/N?" << endl;
 	getline(cin, ans);
 	
 
 	while (ans == "y" || ans == "Y")
 	{
-		
-		if(myBeer.captureInventoryBeerItem() == myBeer.captureInventoryBeerItem())
+		if (!myBeer->duplicateInventoryBeerItem())
 		{
-			cout << "Duplicate Item Found!";
+			
 		}
 		else
-		{ 
-		list[numrecords] = new inventoryBeer();
-		list[numrecords]->captureInventoryBeerItem();
-		numrecords++;
+		{
+			list[numrecords] = new inventoryBeer();
+			list[numrecords]->captureInventoryBeerItem();
+			numrecords++;
+			cout << "Enter another Beer? Y/N?" << endl;
+			getline(cin, ans);
 		}
-		
-		cout << "Enter another Beer? Y/N?" << endl;
-		getline(cin, ans);
 	}
 }
 
@@ -242,6 +243,15 @@ int inventoryBeerList::readInventoryBeerList(string filename)
 	infile.close();
 	return 0;
 }
+
+void inventoryBeer::duplicateInventoryBeerItem()
+{
+	if (beerName == beerName && beerBrewery == beerBrewery)
+	{
+		cout << "Duplicate beer found" << endl;
+	}
+}
+
 
 
 
