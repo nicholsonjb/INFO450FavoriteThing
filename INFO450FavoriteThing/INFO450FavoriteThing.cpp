@@ -18,7 +18,6 @@ const int ARRAYSIZE = 100;
 //Beer  Class
 class Beer
 {
-
 	string beerName;
 	string beerStyle;
 	string alocholContent;
@@ -33,9 +32,6 @@ public:
 	void captureBeerItem();
 	void showBeerItem();
 	int saveBeerItem(ofstream& outfile);
-
-	
-	
 };
 
 //Beer  List Class
@@ -53,10 +49,8 @@ public:
 	void getUserInput();
 	void showBeerList();
 	int saveBeerList(string filename);
-	int readBeerList(string filename); 
-	
-	
-	
+	int readBeerList(string filename);
+	int duplicateBeerItem();
 };
 
 
@@ -157,14 +151,20 @@ int BeerList::reallocateArray()
 //Get User Input --Will need addtional work
 void BeerList::getUserInput()
 {
-	
-	Beer *mybeer;
-	mybeer = new Beer();
-	string name;
+	string answer = "Y";
+	list[numrecords] = new Beer();
 
-	mybeer->captureBeerItem();
-
-	
+	do
+	{
+		if (!duplicateBeerItem())
+		{
+			cout << "Duplicate Found." << endl;
+		}
+		else
+			list[numrecords]->captureBeerItem();
+		numrecords++;
+	}
+	while (answer == "Y" || answer == "y");
 }
 
 //Show beer list to console
@@ -230,15 +230,20 @@ int BeerList::readBeerList(string filename)
 	return 0;
 }
 
-//Search for Duplicate items
-//int BeerList::duplicateBeerItem()
-//{
-//	for (int i = 0; i < numrecords; i++)
-//	{
-//		list[i]->captureBeerItem();	
-//	}
-//	return -1;
-//}
+// Duplicate items
+int BeerList::duplicateBeerItem()
+{
+	Beer* mybeer;
+	mybeer = new Beer();
+	int duplicate;
+
+	duplicate = mybeer->captureBeerItem();
+
+	if (duplicate)
+	{
+		return 1;
+	}
+}
 
 int main()
 {
