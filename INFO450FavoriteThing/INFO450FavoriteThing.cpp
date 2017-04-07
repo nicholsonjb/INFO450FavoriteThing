@@ -50,7 +50,7 @@ public:
 	void showBeerList();
 	int saveBeerList(string filename);
 	int readBeerList(string filename);
-	int duplicateBeerItem();
+	/*int duplicateBeerItem();*/
 };
 
 
@@ -152,19 +152,16 @@ int BeerList::reallocateArray()
 void BeerList::getUserInput()
 {
 	string answer = "Y";
-	list[numrecords] = new Beer();
-
-	do
+	cout << "enter item Y/N" << endl;
+	getline(cin, answer);
+	while (answer == "Y" || answer == "y")
 	{
-		if (!duplicateBeerItem())
-		{
-			cout << "Duplicate Found." << endl;
-		}
-		else
-			list[numrecords]->captureBeerItem();
+		list[numrecords] = new Beer();
+		list[numrecords]->captureBeerItem();
 		numrecords++;
+		cout << "enter another item Y/N" << endl;
+		getline(cin, answer);
 	}
-	while (answer == "Y" || answer == "y");
 }
 
 //Show beer list to console
@@ -231,25 +228,29 @@ int BeerList::readBeerList(string filename)
 }
 
 // Duplicate items
-int BeerList::duplicateBeerItem()
-{
-	Beer* mybeer;
-	mybeer = new Beer();
-	int duplicate;
-
-	duplicate = mybeer->captureBeerItem();
-
-	if (duplicate)
-	{
-		return 1;
-	}
-}
+//int BeerList::duplicateBeerItem()
+//{
+//	Beer *mybeer;
+//	mybeer = new Beer;
+//	int duplicate;
+//
+//	duplicate = false;
+//
+//	if (duplicate)
+//	{
+//	mybeer->captureBeerItem();
+//		return 1;
+//	}
+//}
 
 int main()
 {
 	BeerList my;
 
+	int error;
+	string answer;
 	string filename;
+
 	cout << "Welcome to The Beer Club Craft Beer Tracker!" << endl;
 	cout << "To access the list text file. Use the file path where the text file" << endl;
 	cout << "is stored on your machine. Ex. C:\\Projects\\BrewList.txt" << endl;
@@ -262,6 +263,16 @@ int main()
 	{
 		cout << "Error while opening the file" << endl;
 		return 1;
+	}
+	error = my.readBeerList(filename);
+	if (error)
+	{
+		cout << "Cannot read Beer List - continue creating new list? Y/N -->";
+		getline(cin, answer);
+		if (answer != "Y" && answer != "y")
+		{
+			return 1;
+		}
 	}
 	my.getUserInput();
 	my.saveBeerList(filename);
