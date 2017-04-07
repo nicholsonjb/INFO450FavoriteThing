@@ -155,23 +155,38 @@ int BeerList::reallocateArray()
 //Get User Input --Will need addtional work
 void BeerList::getUserInput()
 {
+	string answer = "Y";
 	Beer* mybeer;
 	mybeer = new Beer;
-	mybeer->captureBeerItem();
-	
 
-	string answer = "Y";
-	cout << "enter item Y/N" << endl;
-	getline(cin, answer);
-	while (answer == "Y" || answer == "y")
+	int duplicate =0;
+	 while (answer == "Y" || answer == "y")
+	if (!duplicate)
 	{
+		mybeer->captureBeerItem();
+		cout << "Duplicate Entry Found. Please Enter Another: " << endl;
+	
+	}
+	else
+	{ 
 		list[numrecords] = new Beer();
 		list[numrecords]->captureBeerItem();
 		numrecords++;
-		cout << "enter another item Y/N" << endl;
-		getline(cin, answer);
-	}
+		
+	}cout << "enter another item Y/N" << endl;
+	 getline(cin, answer);
 
+	//
+	//cout << "enter item Y/N" << endl;
+	//getline(cin, answer);
+	
+	//{
+	//	
+	//	list[numrecords]->captureBeerItem();
+	//	numrecords++;
+	//	cout << "enter another item Y/N" << endl;
+	//	getline(cin, answer);
+	//}
 }
 
 //Show beer list to console
