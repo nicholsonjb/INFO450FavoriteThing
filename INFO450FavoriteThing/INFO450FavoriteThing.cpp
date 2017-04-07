@@ -18,7 +18,7 @@ const int ARRAYSIZE = 100;
 //Beer  Class
 class Beer
 {
-protected:
+
 	string beerName;
 	string beerStyle;
 	string alocholContent;
@@ -157,28 +157,14 @@ int BeerList::reallocateArray()
 //Get User Input --Will need addtional work
 void BeerList::getUserInput()
 {
-	int i =0;
-	string answer = "Y";
+	
 	Beer *mybeer;
 	mybeer = new Beer();
+	string name;
 
-	list[numrecords] = new Beer();
 	mybeer->captureBeerItem();
 
-	while (answer == "Y" || answer == "y")
-	{
-		if (list[i] == list[i])
-		{
-			cout << "Same!" << endl;
-		}
-		else
-		{
-			list[numrecords]->captureBeerItem();
-			numrecords++;
-			cout << "enter another item Y/N" << endl;
-			getline(cin, answer);
-		}
-	}
+	
 }
 
 //Show beer list to console
