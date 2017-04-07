@@ -42,6 +42,13 @@ protected:
 	Beer** list;
 	int numrecords;
 	int listsize;
+	string beerName;
+	string beerStyle;
+	string alocholContent;
+	string beerBrewery;
+	string beerLocation;
+	string beerRating;
+
 	int reallocateArray();
 public:
 	BeerList();
@@ -123,6 +130,8 @@ BeerList::BeerList()
 	listsize = ARRAYSIZE;
 }
 
+
+
 //Deconstructor - free allocated memeory
 BeerList::~BeerList()
 {
@@ -151,17 +160,23 @@ int BeerList::reallocateArray()
 //Get User Input --Will need addtional work
 void BeerList::getUserInput()
 {
-	string answer = "Y";
-	cout << "enter item Y/N" << endl;
-	getline(cin, answer);
-	while (answer == "Y" || answer == "y")
-	{
-		list[numrecords] = new Beer();
-		list[numrecords]->captureBeerItem();
-		numrecords++;
-		cout << "enter another item Y/N" << endl;
+	list[numrecords] = new Beer();
+	Beer *mybeer;
+		mybeer = new Beer;
+		mybeer->captureBeerItem();
+
+		string answer = "Y";
+		cout << "enter item Y/N" << endl;
 		getline(cin, answer);
-	}
+
+		while (answer == "Y" || answer == "y")
+		{
+			list[numrecords]->captureBeerItem();
+			numrecords++;
+			cout << "enter another item Y/N" << endl;
+			getline(cin, answer);
+		}
+		
 }
 
 //Show beer list to console
