@@ -7,6 +7,7 @@
 #include <fstream>
 #include <windows.h>
 #include <conio.h>
+#include <list>
 
 using namespace std;
 
@@ -17,6 +18,7 @@ const int ARRAYSIZE = 100;
 //Beer  Class
 class Beer
 {
+protected:
 	string beerName;
 	string beerStyle;
 	string alocholContent;
@@ -31,6 +33,8 @@ public:
 	void captureBeerItem();
 	void showBeerItem();
 	int saveBeerItem(ofstream& outfile);
+
+	
 	
 };
 
@@ -38,6 +42,7 @@ public:
 
 class BeerList
 {
+protected:
 	Beer** list;
 	int numrecords;
 	int listsize;
@@ -48,8 +53,10 @@ public:
 	void getUserInput();
 	void showBeerList();
 	int saveBeerList(string filename);
-	int readBeerList(string filename);
-	int duplicateBeerItem(string name, string brewer); //this checks for duplicates by name
+	int readBeerList(string filename); 
+	int duplicateBeerItem(); //this checks for duplicates by name
+	
+	
 };
 
 
@@ -150,17 +157,23 @@ int BeerList::reallocateArray()
 //Get User Input --Will need addtional work
 void BeerList::getUserInput()
 {
+	list[numrecords] = new Beer();
 	string answer = "Y";
-	cout << "Enter item Y/N" << endl;
-	getline(cin, answer);
-	while (answer == "Y" || answer == "y")
+	do
 	{
-		list[numrecords] = new Beer();
-		list[numrecords]->captureBeerItem();
-		numrecords++;
-		cout << "Enter another item Y/N" << endl;
-		getline(cin, answer);
-	}
+		if (!duplicateBeerItem())
+		{
+			cout << "Duplicate Found!" << endl;
+		}
+		else
+		
+			list[numrecords]->captureBeerItem();
+			numrecords++;
+			cout << "Enter another item Y/N" << endl;
+			getline(cin, answer);
+		
+	} while (answer =="y" || answer == "Y");
+	
 }
 
 //Show beer list to console
@@ -226,11 +239,15 @@ int BeerList::readBeerList(string filename)
 	return 0;
 }
 
-
-
-
-
-
+//Search for Duplicate items
+int BeerList::duplicateBeerItem()
+{
+	for (int i = 0; i < numrecords; i++)
+	{
+		list[i]->captureBeerItem();	
+	}
+	return -1;
+}
 
 int main()
 {
