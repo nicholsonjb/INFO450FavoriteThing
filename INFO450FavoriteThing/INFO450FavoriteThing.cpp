@@ -148,18 +148,8 @@ BeerList::~BeerList()
 //newBeer
 void BeerList::addNewBeer()
 {
-	cout << "Beer Name -->";
-	getline(cin, beerName);
-	cout << "Beer Style -->";
-	getline(cin, beerStyle);
-	cout << "ABV -->";
-	getline(cin, alocholContent);
-	cout << "Beer Brewery -->";
-	getline(cin, beerBrewery);
-	cout << "Beer Location -->";
-	getline(cin, beerLocation);
-	cout << "Beer Rating -->";
-	getline(cin, beerRating);
+	for (int i = 0; i < numrecords; i++)
+		list[i]->captureNewBeerItem();
 }
 
 
@@ -188,8 +178,19 @@ void BeerList::getUserInput()
 	myNewBeer = new BeerList();
 	
 	mybeer->captureNewBeerItem();
+	
+	if()
+	{
+		myNewBeer->addNewBeer();
+	}
+	else
+	{ 
+	list[numrecords]->captureNewBeerItem();
+	numrecords++;
+	}
+	
 
-	myNewBeer->addNewBeer();
+	
 	
 
 }
