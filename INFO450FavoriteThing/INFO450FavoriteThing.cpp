@@ -182,10 +182,15 @@ int BeerList::reallocateArray()
 void BeerList::getUserInput()
 {
 	string answer = "Y";
-	Beer* mybeer;
-	mybeer = new Beer;
+	BeerList *myNewBeer;
+	Beer *mybeer;
+	mybeer = new Beer();
+	myNewBeer = new BeerList();
 	
 	mybeer->captureNewBeerItem();
+
+	myNewBeer->addNewBeer();
+	
 
 }
 
