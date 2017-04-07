@@ -54,7 +54,7 @@ public:
 	void showBeerList();
 	int saveBeerList(string filename);
 	int readBeerList(string filename); 
-	int duplicateBeerItem(); //this checks for duplicates by name
+	
 	
 	
 };
@@ -157,23 +157,28 @@ int BeerList::reallocateArray()
 //Get User Input --Will need addtional work
 void BeerList::getUserInput()
 {
-	list[numrecords] = new Beer();
+	int i =0;
 	string answer = "Y";
-	do
+	Beer *mybeer;
+	mybeer = new Beer();
+
+	list[numrecords] = new Beer();
+	mybeer->captureBeerItem();
+
+	while (answer == "Y" || answer == "y")
 	{
-		if (!duplicateBeerItem())
+		if (list[i] == list[i])
 		{
-			cout << "Duplicate Found!" << endl;
+			cout << "Same!" << endl;
 		}
 		else
-		
+		{
 			list[numrecords]->captureBeerItem();
 			numrecords++;
-			cout << "Enter another item Y/N" << endl;
+			cout << "enter another item Y/N" << endl;
 			getline(cin, answer);
-		
-	} while (answer =="y" || answer == "Y");
-	
+		}
+	}
 }
 
 //Show beer list to console
@@ -240,14 +245,14 @@ int BeerList::readBeerList(string filename)
 }
 
 //Search for Duplicate items
-int BeerList::duplicateBeerItem()
-{
-	for (int i = 0; i < numrecords; i++)
-	{
-		list[i]->captureBeerItem();	
-	}
-	return -1;
-}
+//int BeerList::duplicateBeerItem()
+//{
+//	for (int i = 0; i < numrecords; i++)
+//	{
+//		list[i]->captureBeerItem();	
+//	}
+//	return -1;
+//}
 
 int main()
 {
