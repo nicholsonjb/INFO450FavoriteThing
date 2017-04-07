@@ -29,9 +29,9 @@ class Beer
 public:
 	Beer();
 	Beer(string name, string style, string alc, string brewer, string loc, string rate);
-	void captureNewBeerItem();
-	void showBeerItem();
-	int saveBeerItem(ofstream& outfile);
+	int captureNewBeer();
+	void showBeer();
+	int saveBeer(ofstream& outfile);
 };
 
 //Beer  List Class
@@ -57,7 +57,7 @@ public:
 	void showBeerList();
 	int saveBeerList(string filename);
 	int readBeerList(string filename);
-	void addNewBeer();
+	int addNewBeer();
 	
 };
 
@@ -86,7 +86,7 @@ Beer::Beer(string name, string style, string alc, string brewer, string loc, str
 }
 
 //Capture beer from end users
-void Beer::captureNewBeerItem()
+int Beer::captureNewBeer()
 {
 	cout << "Beer Name -->";
 	getline(cin, beerName);
@@ -100,10 +100,12 @@ void Beer::captureNewBeerItem()
 	getline(cin, beerLocation);
 	cout << "Beer Rating -->";
 	getline(cin, beerRating);
+	
+	return captureNewBeer();
 }
 
 //Display beer to console
-void Beer::showBeerItem()
+void Beer::showBeer()
 {
 	cout << "-----------------------\n";
 	cout << "Name: " << beerName << "\nBeer Style: " << beerStyle << "\nABV: " << alocholContent
@@ -112,7 +114,7 @@ void Beer::showBeerItem()
 
 
 //Save beer item to given input file stream
-int Beer::saveBeerItem(ofstream& outfile)
+int Beer::saveBeer(ofstream& outfile)
 {
 	if (outfile.is_open())
 	{
@@ -146,10 +148,20 @@ BeerList::~BeerList()
 
 
 //newBeer
-void BeerList::addNewBeer()
+int BeerList::addNewBeer()
 {
-	for (int i = 0; i < numrecords; i++)
-		list[i]->captureNewBeerItem();
+	
+	Beer*mybeer;
+	mybeer = new Beer;
+	
+	if (beerName == beerName && beerBrewery ==beerBrewery)
+	{
+		cout << "Duplicate Found" << endl;
+	}
+	else
+	{
+		mybeer->captureNewBeer();
+	}
 }
 
 
@@ -177,7 +189,7 @@ void BeerList::getUserInput()
 	mybeer = new Beer();
 	myNewBeer = new BeerList();
 	
-	mybeer->captureNewBeerItem();
+	mybeer->captureNewBeer();
 	
 	if()
 	{
@@ -185,13 +197,9 @@ void BeerList::getUserInput()
 	}
 	else
 	{ 
-	list[numrecords]->captureNewBeerItem();
+	list[numrecords]->captureNewBeer();
 	numrecords++;
 	}
-	
-
-	
-	
 
 }
 
@@ -200,7 +208,7 @@ void BeerList::showBeerList()
 {
 	for (int i = 0; i < numrecords; i++)
 	{
-		list[i]->showBeerItem();
+		list[i]->showBeer();
 	}
 }
 
@@ -213,7 +221,7 @@ int BeerList::saveBeerList(string filename)
 	{
 		for (int i = 0; i < numrecords; i++)
 		{
-			list[i]->saveBeerItem(output);
+			list[i]->saveBeer(output);
 		}
 		output.close();
 	}
