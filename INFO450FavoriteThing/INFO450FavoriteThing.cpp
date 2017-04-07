@@ -29,7 +29,7 @@ class Beer
 public:
 	Beer();
 	Beer(string name, string style, string alc, string brewer, string loc, string rate);
-	void captureBeerItem();
+	void captureNewBeerItem();
 	void showBeerItem();
 	int saveBeerItem(ofstream& outfile);
 };
@@ -40,11 +40,16 @@ class BeerList
 {
 protected:
 	Beer** list;
-	BeerList *BeerItems;
 	int numrecords;
 	int listsize;
-
+	string beerName;
+	string beerStyle;
+	string alocholContent;
+	string beerBrewery;
+	string beerLocation;
+	string beerRating;
 	int reallocateArray();
+
 public:
 	BeerList();
 	~BeerList();
@@ -53,7 +58,9 @@ public:
 	int saveBeerList(string filename);
 	int readBeerList(string filename);
 	void addNewBeer();
+	
 };
+
 
 
 //default constructor - intialized empty
@@ -79,7 +86,7 @@ Beer::Beer(string name, string style, string alc, string brewer, string loc, str
 }
 
 //Capture beer from end users
-void Beer::captureBeerItem()
+void Beer::captureNewBeerItem()
 {
 	cout << "Beer Name -->";
 	getline(cin, beerName);
@@ -137,6 +144,25 @@ BeerList::~BeerList()
 	delete[]list;
 }
 
+
+//newBeer
+void BeerList::addNewBeer()
+{
+	cout << "Beer Name -->";
+	getline(cin, beerName);
+	cout << "Beer Style -->";
+	getline(cin, beerStyle);
+	cout << "ABV -->";
+	getline(cin, alocholContent);
+	cout << "Beer Brewery -->";
+	getline(cin, beerBrewery);
+	cout << "Beer Location -->";
+	getline(cin, beerLocation);
+	cout << "Beer Rating -->";
+	getline(cin, beerRating);
+}
+
+
 //Reallocate memory if already at capacity
 int BeerList::reallocateArray()
 {
@@ -158,35 +184,9 @@ void BeerList::getUserInput()
 	string answer = "Y";
 	Beer* mybeer;
 	mybeer = new Beer;
-
-	int duplicate =0;
-	 while (answer == "Y" || answer == "y")
-	if (!duplicate)
-	{
-		mybeer->captureBeerItem();
-		cout << "Duplicate Entry Found. Please Enter Another: " << endl;
 	
-	}
-	else
-	{ 
-		list[numrecords] = new Beer();
-		list[numrecords]->captureBeerItem();
-		numrecords++;
-		
-	}cout << "enter another item Y/N" << endl;
-	 getline(cin, answer);
+	mybeer->captureNewBeerItem();
 
-	//
-	//cout << "enter item Y/N" << endl;
-	//getline(cin, answer);
-	
-	//{
-	//	
-	//	list[numrecords]->captureBeerItem();
-	//	numrecords++;
-	//	cout << "enter another item Y/N" << endl;
-	//	getline(cin, answer);
-	//}
 }
 
 //Show beer list to console
