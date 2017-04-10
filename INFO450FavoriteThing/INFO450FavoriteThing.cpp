@@ -147,23 +147,6 @@ BeerList::~BeerList()
 }
 
 
-//newBeer
-int BeerList::addNewBeer()
-{
-	
-	Beer*mybeer;
-	mybeer = new Beer;
-	
-	if (beerName == beerName && beerBrewery ==beerBrewery)
-	{
-		cout << "Duplicate Found" << endl;
-	}
-	else
-	{
-		mybeer->captureNewBeer();
-	}
-}
-
 
 //Reallocate memory if already at capacity
 int BeerList::reallocateArray()
@@ -179,6 +162,24 @@ int BeerList::reallocateArray()
 	list = temp;
 	return 0;
 }
+
+//addnewBeer
+int BeerList::addNewBeer()
+{
+
+	Beer*mybeer;
+	mybeer = new Beer;
+
+	if (beerName == beerName && beerBrewery == beerBrewery)
+	{
+		cout << "Duplicate Found" << endl;
+	}
+	else
+	{
+		mybeer->captureNewBeer();
+	}
+}
+
 
 //Get User Input --Will need addtional work
 void BeerList::getUserInput()
