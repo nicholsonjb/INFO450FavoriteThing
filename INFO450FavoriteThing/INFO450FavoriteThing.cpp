@@ -29,7 +29,7 @@ class Beer
 public:
 	Beer();
 	Beer(string name, string style, string alc, string brewer, string loc, string rate);
-	int captureNewBeer();
+	void captureNewBeer();
 	void showBeer();
 	int saveBeer(ofstream& outfile);
 };
@@ -86,7 +86,7 @@ Beer::Beer(string name, string style, string alc, string brewer, string loc, str
 }
 
 //Capture beer from end users
-int Beer::captureNewBeer()
+void Beer::captureNewBeer()
 {
 	cout << "Beer Name -->";
 	getline(cin, beerName);
@@ -101,7 +101,7 @@ int Beer::captureNewBeer()
 	cout << "Beer Rating -->";
 	getline(cin, beerRating);
 	
-	return captureNewBeer();
+	
 }
 
 //Display beer to console
