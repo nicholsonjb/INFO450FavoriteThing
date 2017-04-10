@@ -42,12 +42,6 @@ protected:
 	Beer** list;
 	int numrecords;
 	int listsize;
-	string beerName;
-	string beerStyle;
-	string alocholContent;
-	string beerBrewery;
-	string beerLocation;
-	string beerRating;
 	int reallocateArray();
 
 public:
@@ -57,7 +51,7 @@ public:
 	void showBeerList();
 	int saveBeerList(string filename);
 	int readBeerList(string filename);
-	int addNewBeer();
+	void addNewBeer();
 	
 };
 
@@ -164,7 +158,7 @@ int BeerList::reallocateArray()
 }
 
 //addnewBeer
-int BeerList::addNewBeer()
+void BeerList::addNewBeer()
 {
 
 	Beer*mybeer;
