@@ -32,6 +32,7 @@ public:
 	void captureNewBeer();
 	void showBeer();
 	int saveBeer(ofstream& outfile);
+	bool beerIsEqual(Beer*name);
 };
 
 //Beer  List Class
@@ -79,6 +80,17 @@ Beer::Beer(string name, string style, string alc, string brewer, string loc, str
 	beerRating = rate;
 }
 
+bool Beer::beerIsEqual(Beer*name)
+{
+	if (beerName == name->beerName && beerBrewery == name->beerBrewery)
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
+}
 //Capture beer from end users
 void Beer::captureNewBeer()
 {
@@ -160,41 +172,35 @@ int BeerList::reallocateArray()
 //addnewBeer
 void BeerList::addNewBeer()
 {
+		Beer *mybeer;
+		mybeer = new Beer();
+		bool foundIt = false;
 
-	Beer*mybeer;
-	mybeer = new Beer;
-
-	if (beerName == beerName && beerBrewery == beerBrewery)
-	{
-		cout << "Duplicate Found" << endl;
-	}
-	else
-	{
 		mybeer->captureNewBeer();
-	}
+
+		for (int i = 0; i < numrecords; i++)
+		{
+			if (list[i]->beerIsEqual(mybeer))
+				
+			{
+				foundIt = true;
+				break;
+			}
+		}
+		if (foundIt == false) 
+		{
+			list[numrecords] = mybeer;
+			numrecords++;
+		}
 }
+
 
 
 //Get User Input --Will need addtional work
 void BeerList::getUserInput()
 {
 	string answer = "Y";
-	BeerList *myNewBeer;
-	Beer *mybeer;
-	mybeer = new Beer();
-	myNewBeer = new BeerList();
-	
-	mybeer->captureNewBeer();
-	
-	if()
-	{
-		myNewBeer->addNewBeer();
-	}
-	else
-	{ 
-	list[numrecords]->captureNewBeer();
-	numrecords++;
-	}
+
 
 }
 
