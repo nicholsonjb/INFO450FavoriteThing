@@ -200,7 +200,16 @@ void BeerList::addNewBeer()
 void BeerList::getUserInput()
 {
 	string answer = "Y";
-
+	cout << "enter item Y/N?" << endl;
+	getline(cin, answer);
+	while (answer == "Y" || answer == "y")
+	{
+		Beer*mybeer = new Beer();
+		mybeer->captureNewBeer;
+		numrecords++;
+		cout << "enter another item Y/N?" << endl;
+		getline(cin, answer);
+	}
 
 }
 
