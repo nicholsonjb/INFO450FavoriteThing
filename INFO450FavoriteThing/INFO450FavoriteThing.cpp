@@ -180,7 +180,7 @@ void BeerList::addNewBeer()
 	{
 		if (list[i]->beerIsEqual(mybeer))
 
-	{
+		{
 			cout << "Duplicate Beer Found!" << endl;
 			foundIt = true;
 		}
