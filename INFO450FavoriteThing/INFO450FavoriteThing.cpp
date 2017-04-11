@@ -79,6 +79,8 @@ Beer::Beer(string name, string style, string alc, string brewer, string loc, str
 	beerRating = rate;
 }
 
+
+//Compare unique Id for Beer
 bool Beer::beerIsEqual(Beer* name)
 {
 	if (beerName == name->beerName && beerBrewery == name->beerBrewery)
@@ -165,7 +167,7 @@ int BeerList::reallocateArray()
 	return 0;
 }
 
-//addnewBeer
+//add new better to list if not current in list
 void BeerList::addNewBeer()
 {
 	Beer* mybeer;
@@ -191,7 +193,7 @@ void BeerList::addNewBeer()
 }
 
 
-//Get User Input --Will need addtional work
+//Get User Input
 void BeerList::getUserInput()
 {
 	string answer = "Y";
