@@ -33,6 +33,7 @@ public:
 	void showBeer();
 	int saveBeer(ofstream& outfile);
 	bool beerIsEqual(Beer*name);
+	friend class BeerList;
 };
 
 //Beer  List Class
@@ -183,8 +184,8 @@ void BeerList::addNewBeer()
 			if (list[i]->beerIsEqual(mybeer))
 				
 			{
+				cout << "Duplicate Beer Found!" << endl;
 				foundIt = true;
-				break;
 			}
 		}
 		if (foundIt == false) 
@@ -203,8 +204,8 @@ void BeerList::getUserInput()
 	getline(cin, answer);
 	while (answer == "Y" || answer == "y")
 	{
-		BeerList*mybeer = new BeerList();
-		mybeer->addNewBeer();
+		Beer*myBeer = new Beer();
+		addNewBeer();
 		cout << "enter another item Y/N?" << endl;
 		getline(cin, answer);
 	}
@@ -290,13 +291,7 @@ int main()
 
 	cout << "Enter the full path of the file: " << endl;
 	getline(cin, filename);
-	ifstream file(filename.c_str());
-
-	if (!file)
-	{
-		cout << "Error while opening the file" << endl;
-		return 1;
-	}
+	ifstream file(filename);
 	error = my.readBeerList(filename);
 	if (error)
 	{
