@@ -32,7 +32,7 @@ public:
 	void captureNewBeer();
 	void showBeer();
 	int saveBeer(ofstream& outfile);
-	bool beerIsEqual(Beer*name);
+	bool beerIsEqual(Beer* name);
 	friend class BeerList;
 };
 
@@ -54,9 +54,7 @@ public:
 	int saveBeerList(string filename);
 	int readBeerList(string filename);
 	void addNewBeer();
-	
 };
-
 
 
 //default constructor - intialized empty
@@ -81,7 +79,7 @@ Beer::Beer(string name, string style, string alc, string brewer, string loc, str
 	beerRating = rate;
 }
 
-bool Beer::beerIsEqual(Beer*name)
+bool Beer::beerIsEqual(Beer* name)
 {
 	if (beerName == name->beerName && beerBrewery == name->beerBrewery)
 	{
@@ -92,6 +90,7 @@ bool Beer::beerIsEqual(Beer*name)
 		return 0;
 	}
 }
+
 //Capture beer from end users
 void Beer::captureNewBeer()
 {
@@ -107,8 +106,6 @@ void Beer::captureNewBeer()
 	getline(cin, beerLocation);
 	cout << "Beer Rating -->";
 	getline(cin, beerRating);
-	
-	
 }
 
 //Display beer to console
@@ -142,7 +139,6 @@ BeerList::BeerList()
 }
 
 
-
 //Deconstructor - free allocated memeory
 BeerList::~BeerList()
 {
@@ -152,7 +148,6 @@ BeerList::~BeerList()
 	}
 	delete[]list;
 }
-
 
 
 //Reallocate memory if already at capacity
@@ -173,26 +168,26 @@ int BeerList::reallocateArray()
 //addnewBeer
 void BeerList::addNewBeer()
 {
-		Beer *mybeer;
-		mybeer = new Beer();
-		bool foundIt = false;
+	Beer* mybeer;
+	mybeer = new Beer();
+	bool foundIt = false;
 
-		mybeer->captureNewBeer();
+	mybeer->captureNewBeer();
 
-		for (int i = 0; i < numrecords; i++)
+	for (int i = 0; i < numrecords; i++)
+	{
+		if (list[i]->beerIsEqual(mybeer))
+
 		{
-			if (list[i]->beerIsEqual(mybeer))
-				
-			{
-				cout << "Duplicate Beer Found!" << endl;
-				foundIt = true;
-			}
+			cout << "Duplicate Beer Found!" << endl;
+			foundIt = true;
 		}
-		if (foundIt == false) 
-		{
-			list[numrecords] = mybeer;
-			numrecords++;
-		}
+	}
+	if (foundIt == false)
+	{
+		list[numrecords] = mybeer;
+		numrecords++;
+	}
 }
 
 
@@ -204,12 +199,11 @@ void BeerList::getUserInput()
 	getline(cin, answer);
 	while (answer == "Y" || answer == "y")
 	{
-		Beer*myBeer = new Beer();
+		Beer* myBeer = new Beer();
 		addNewBeer();
 		cout << "enter another item Y/N?" << endl;
 		getline(cin, answer);
 	}
-
 }
 
 //Show beer list to console
@@ -274,7 +268,6 @@ int BeerList::readBeerList(string filename)
 	infile.close();
 	return 0;
 }
-
 
 
 int main()
