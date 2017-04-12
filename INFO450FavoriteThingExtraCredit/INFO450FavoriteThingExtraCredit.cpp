@@ -323,12 +323,13 @@ int main()
 	error = my.readBeerList(filename);
 	if (error)
 	{
-		cout << "Cannot read Beer List - continue creating new list? Y/N -->";
-		getline(cin, answer);
-		if (answer != "Y" && answer != "y")
-		{
-			return 1;
-		}
+		cout << "Cannot read list" << endl;
+		cout << "Possible issues:" << endl;
+		cout << "1. Incorrect file name" << endl;
+		cout << "2. File does not exist " << endl;
+		cout << "3. Incorrect file path" << endl;
+
+		return 0;
 	}
 	my.getUserInput();
 	my.saveBeerList(filename);
