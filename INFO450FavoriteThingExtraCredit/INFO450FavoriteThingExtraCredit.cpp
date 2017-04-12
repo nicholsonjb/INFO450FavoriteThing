@@ -43,7 +43,7 @@ public:
 	void captureNewBeer();
 	void showBeer();
 	int saveBeer(ofstream& outfile);
-	
+
 	bool beerIsEqual(Beer* name);
 	friend class BeerList;
 };
@@ -289,25 +289,31 @@ int BeerList::readBeerList(string filename)
 //Deleting Favorite Beer
 void BeerList::deleteingBeer(string filename)
 {
-//need to be able to unquie id input
+	//need to be able to unquie id input
 	Beer* mybeer;
 	mybeer = new Beer();
 
-	string line, input;
+	string line, inputBeer, inputBrewer, inputStyle;
 	cout << "Please enter Beer name, Beer Brewery, and Beer Style you want to delete: " << endl;
-	getline(cin, input);
-	ifstream myfile(filename);
-	ofstream(temp);
-	myfile.open(filename, ios::app);
-	
+	cout << "Beer Name -->";
+	getline(cin, inputBeer);
+	cout << "Beer Brewery --> ";
+	getline(cin, inputBrewer);
+	cout << "Beer Style--> ";
+	getline(cin, inputStyle);
+	ifstream myfile;
+	ofstream temp;
+	myfile.open(filename);
+	temp.open(filename);
+
 
 	while (getline(myfile, line))
 	{
-		if (line != input)
+		if (line != inputBeer && line != inputBrewer && line != inputStyle)
 
 			temp << line << endl;
 	}
-	cout << "The record with the of " << input << " has been deleted if it existed" << endl;
+	cout << "The record with the of " << inputBeer << " has been deleted if it existed" << endl;
 	myfile.close();
 }
 
