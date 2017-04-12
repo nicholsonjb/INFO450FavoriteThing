@@ -1,5 +1,12 @@
 // INFO450FavoriteThing.cpp : Defines the entry point for the console application.
 //
+//Author: James Nicholson
+//Spring 2017
+//Purpose: My Favorite Things are those things that people like to do, 
+//eat, or drink …  The intent of this assignment is to build a tracker for o
+//ne of your favorite things.This tracker will allow you to build and maintain a list of 
+//your favorite things and save them to a file.
+
 
 #include "stdafx.h"
 #include <iostream>

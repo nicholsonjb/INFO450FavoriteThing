@@ -3,6 +3,14 @@
 
 // INFO450FavoriteThing.cpp : Defines the entry point for the console application.
 //
+// INFO450FavoriteThing.cpp : Defines the entry point for the console application.
+//
+//Author: James Nicholson
+//Spring 2017
+//Purpose: My Favorite Things are those things that people like to do, 
+//eat, or drink …  The intent of this assignment is to build a tracker for o
+//ne of your favorite things.This tracker will allow you to build and maintain a list of 
+//your favorite things and save them to a file.
 
 #include "stdafx.h"
 #include <iostream>
@@ -279,7 +287,7 @@ int BeerList::readBeerList(string filename)
 //Deleting Favorite Beer
 void BeerList::deleteingBeer(string filename, Beer* name)
 {
-	string line,ans;
+	string line, ans;
 	cout << "Please enter the name of the beer you want to delete: " << endl;
 	getline(cin, ans);
 	ifstream myfile(filename);
