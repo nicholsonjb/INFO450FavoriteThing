@@ -312,12 +312,12 @@ void BeerList::deleteingBeer(string filename)
 //Searching Favorite Beer
 void BeerList::searchingBeer(string filename)
 {
-	ifstream fileInput;
-	fileInput.open(filename);
+	ifstream myfile;
+	myfile.open(filename);
 	string line, search;
 	cout << "Please enter the term to search: ";
-	cin >> search;
-	for (int i = 0; getline(fileInput, line); i++)
+	getline(cin, search);
+	for (int i = 0; getline(myfile, line); i++)
 	{
 		if (line.find(search) != string::npos)
 		{
