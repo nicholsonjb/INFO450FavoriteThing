@@ -65,8 +65,9 @@ public:
 	int saveBeerList(string filename);
 	int readBeerList(string filename);
 	void addNewBeer();
-	/*void deleteingBeer(string filename, Beer* name);*/
+	void deleteingBeer(string filename);
 	void searchingBeer();
+	friend class Beer;
 };
 
 
@@ -285,24 +286,24 @@ int BeerList::readBeerList(string filename)
 }
 
 //Deleting Favorite Beer
-//void BeerList::deleteingBeer(string filename, Beer* name)
-//{
-//	string line, input;
-//	cout << "Please enter Beer name, Beer Brewery, and Beer Style you want to delete: " << endl;
-//	getline(cin, input);
-//	ifstream myfile(filename);
-//	ofstream filename;
-//	myfile.open(filename);
-//
-//	while (getline(myfile, line))
-//	{
-//		if (beerName == name->beerName && beerBrewery == name->beerBrewery && name == name->beerStyle)
-//			myfile << line << endl;
-//	}
-//	cout << "The record with the of " << input << "has been deleted if it existed" << endl;
-//	myfile.close();
-//
-//}
+void BeerList::deleteingBeer(string filename)
+{
+	string line, input;
+	cout << "Please enter Beer name, Beer Brewery, and Beer Style you want to delete: " << endl;
+	getline(cin, input);
+	ifstream myfile(filename);
+	myfile.open(filename);
+
+	while (getline(myfile, line))
+	{
+		if (line != input)
+
+			myfile << line << endl;
+	}
+	cout << "The record with the of " << input << "has been deleted if it existed" << endl;
+	myfile.close();
+
+}
 
 
 int main()
@@ -334,6 +335,6 @@ int main()
 	my.getUserInput();
 	my.saveBeerList(filename);
 	my.showBeerList();
-	/*my.deleteingBeer(filename);*/
+	my.deleteingBeer(filename);
 	return 0;
 }
