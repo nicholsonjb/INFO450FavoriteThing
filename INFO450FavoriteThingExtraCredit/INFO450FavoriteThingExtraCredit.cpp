@@ -315,6 +315,7 @@ void BeerList::deleteingBeer(string filename)
 	}
 	cout << "The record with the of " << inputBeer << " has been deleted if it existed" << endl;
 	myfile.close();
+	temp.close();
 }
 
 //Searching Favorite Beer
