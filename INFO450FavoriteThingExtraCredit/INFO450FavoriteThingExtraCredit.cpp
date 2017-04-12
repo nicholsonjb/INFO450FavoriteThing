@@ -290,32 +290,21 @@ int BeerList::readBeerList(string filename)
 void BeerList::deleteingBeer(string filename)
 {
 	//need to be able to unquie id input
-	Beer* mybeer;
-	mybeer = new Beer();
-
-	string line, inputBeer, inputBrewer, inputStyle;
-	cout << "Please enter Beer name, Beer Brewery, and Beer Style you want to delete: " << endl;
-	cout << "Beer Name -->";
-	getline(cin, inputBeer);
-	cout << "Beer Brewery --> ";
-	getline(cin, inputBrewer);
-	cout << "Beer Style--> ";
-	getline(cin, inputStyle);
-	ifstream myfile;
-	ofstream temp;
-	myfile.open(filename);
-	temp.open(filename);
-
-
-	while (getline(myfile, line))
+	string line, input;
+	cout << "Please enter the name you want to delete" << endl;
+	getline(cin, input);
+	ofstream myfile(filename, ios::trunc);
+	if (myfile)
 	{
-		if (line != inputBeer && line != inputBrewer && line != inputStyle)
-
-			temp << line << endl;
+		for (int i = 0; i < numrecords; i++)
+		{
+			
+			list[i] = list[i + 1];
+			list[numrecords - 1] = 0;
+		}
+		myfile.close();
 	}
-	cout << "The record with the of " << inputBeer << " has been deleted if it existed" << endl;
-	myfile.close();
-	temp.close();
+
 }
 
 //Searching Favorite Beer
@@ -325,7 +314,7 @@ void BeerList::searchingBeer(string filename)
 	fileInput.open(filename);
 	string line, search;
 	cout << "Please enter the term to search: ";
-	cin >> search;
+	getline(cin, search);
 	for (int i = 0; getline(fileInput, line); i++)
 	{
 		if (line.find(search) != string::npos)
