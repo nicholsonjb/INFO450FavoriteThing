@@ -297,9 +297,9 @@ void BeerList::deleteingBeer(string filename)
 	cout << "Please enter Beer name, Beer Brewery, and Beer Style you want to delete: " << endl;
 	getline(cin, input);
 	ifstream myfile(filename);
-	ofstream temp(filename);
-	myfile.open(filename);
-	temp.open(filename);
+	ofstream(temp);
+	myfile.open(filename, ios::app);
+	
 
 	while (getline(myfile, line))
 	{
@@ -309,7 +309,6 @@ void BeerList::deleteingBeer(string filename)
 	}
 	cout << "The record with the of " << input << " has been deleted if it existed" << endl;
 	myfile.close();
-	temp.close();
 }
 
 //Searching Favorite Beer
