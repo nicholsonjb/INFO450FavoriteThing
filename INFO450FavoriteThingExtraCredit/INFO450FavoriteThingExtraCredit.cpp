@@ -66,7 +66,7 @@ public:
 	int readBeerList(string filename);
 	void addNewBeer();
 	void deleteingBeer(string filename);
-	void searchingBeer();
+	void searchingBeer(string filename);
 	friend class Beer;
 };
 
@@ -211,13 +211,13 @@ void BeerList::addNewBeer()
 void BeerList::getUserInput()
 {
 	string answer = "Y";
-	cout << "enter item Y/N?" << endl;
+	cout << "Enter item Y/N?" << endl;
 	getline(cin, answer);
 	while (answer == "Y" || answer == "y")
 	{
 		Beer* myBeer = new Beer();
 		addNewBeer();
-		cout << "enter another item Y/N?" << endl;
+		cout << "Enter another item Y/N?" << endl;
 		getline(cin, answer);
 	}
 }
@@ -292,17 +292,42 @@ void BeerList::deleteingBeer(string filename)
 	cout << "Please enter Beer name, Beer Brewery, and Beer Style you want to delete: " << endl;
 	getline(cin, input);
 	ifstream myfile(filename);
+	ofstream temp(filename);
 	myfile.open(filename);
+	temp.open(filename);
 
 	while (getline(myfile, line))
 	{
 		if (line != input)
 
-			myfile << line << endl;
+			temp << line << endl;
 	}
-	cout << "The record with the of " << input << "has been deleted if it existed" << endl;
+	cout << "The record with the of " << input << " has been deleted if it existed" << endl;
 	myfile.close();
+	temp.close();
+	
 
+}
+
+//Searching Favorite Beer
+void BeerList::searchingBeer(string filename)
+{
+	ifstream fileInput;
+	fileInput.open(filename);
+	string line, search;
+	cout << "Please enter the term to search: ";
+	cin >> search;
+	for (int i = 0; getline(fileInput, line); i++)
+	{
+		if (line.find(search) != string::npos)
+		{
+			cout << "found: " << search << " on line: " << i << endl;
+		}
+		else
+		{
+			cout << "Error! Not found on Line" << i << endl;
+		}
+	}
 }
 
 
@@ -336,5 +361,6 @@ int main()
 	my.saveBeerList(filename);
 	my.showBeerList();
 	my.deleteingBeer(filename);
+	my.searchingBeer(filename);
 	return 0;
 }
