@@ -10,7 +10,7 @@
 //Purpose: My Favorite Things are those things that people like to do, 
 //eat, or drink …  The intent of this assignment is to build a tracker for o
 //ne of your favorite things.This tracker will allow you to build and maintain a list of 
-//your favorite things and save them to a file.
+//your favorite things and save them to a file. 
 
 #include "stdafx.h"
 #include <iostream>
@@ -305,8 +305,6 @@ void BeerList::deleteingBeer(string filename)
 	cout << "The record with the of " << input << " has been deleted if it existed" << endl;
 	myfile.close();
 	temp.close();
-	
-
 }
 
 //Searching Favorite Beer
