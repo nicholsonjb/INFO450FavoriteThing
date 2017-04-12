@@ -43,6 +43,7 @@ public:
 	void captureNewBeer();
 	void showBeer();
 	int saveBeer(ofstream& outfile);
+	void deleteingBeer(string filename, Beer* name);
 	bool beerIsEqual(Beer* name);
 	friend class BeerList;
 };
@@ -65,7 +66,7 @@ public:
 	int saveBeerList(string filename);
 	int readBeerList(string filename);
 	void addNewBeer();
-	void deleteingBeer(string filename);
+	
 	void searchingBeer(string filename);
 	friend class Beer;
 };
@@ -286,8 +287,10 @@ int BeerList::readBeerList(string filename)
 }
 
 //Deleting Favorite Beer
-void BeerList::deleteingBeer(string filename)
+void Beer::deleteingBeer(string filename, Beer* name)
 {
+//need to be able to unquie id input
+
 	string line, input;
 	cout << "Please enter Beer name, Beer Brewery, and Beer Style you want to delete: " << endl;
 	getline(cin, input);
@@ -358,7 +361,7 @@ int main()
 	my.getUserInput();
 	my.saveBeerList(filename);
 	my.showBeerList();
-	my.deleteingBeer(filename);
-	my.searchingBeer(filename);
+	/*my.deleteingBeer(filename);
+	my.searchingBeer(filename);*/
 	return 0;
 }
