@@ -120,7 +120,7 @@ void Beer::captureNewBeer()
 //Display beer to console
 void Beer::showBeer()
 {
-	cout << "-----------------------\n";
+	cout << "\n-----------------------\n";
 	cout << "Name: " << beerName << "\nBeer Style: " << beerStyle << "\nABV: " << alocholContent
 		<< "\nBrewery: " << beerBrewery << "\nLocation: " << beerLocation << "\nRating: " << beerRating << endl;
 }
@@ -188,7 +188,7 @@ void BeerList::addNewBeer()
 		if (list[i]->beerIsEqual(mybeer))
 
 		{
-			cout << "Duplicate Beer Found!" << endl;
+			cout << "\nDuplicate Beer Found! Please Enter Another Beer" << endl;
 			foundIt = true;
 		}
 	}
@@ -204,13 +204,13 @@ void BeerList::addNewBeer()
 void BeerList::getUserInput()
 {
 	string answer = "Y";
-	cout << "enter item Y/N?" << endl;
+	cout << "\nEnter Beer Y/N?" << endl;
 	getline(cin, answer);
 	while (answer == "Y" || answer == "y")
 	{
 		Beer* myBeer = new Beer();
 		addNewBeer();
-		cout << "enter another item Y/N?" << endl;
+		cout << "\nEnter another Beer Y/N?" << endl;
 		getline(cin, answer);
 	}
 }
@@ -297,13 +297,15 @@ int main()
 	error = my.readBeerList(filename);
 	if (error)
 	{
-		cout << "Cannot read Beer List - continue creating new list? Y/N -->";
-		getline(cin, answer);
-		if (answer != "Y" && answer != "y")
-		{
-			return 1;
-		}
+		cout << "Cannot read list" << endl;
+		cout << "Possible issues:" << endl;
+		cout << "1. Incorrect file name" << endl;
+		cout << "2. File does not exist " << endl;
+		cout << "3. Incorrect file path" << endl;
+
+		return 0;
 	}
+
 	my.getUserInput();
 	my.saveBeerList(filename);
 	my.showBeerList();
