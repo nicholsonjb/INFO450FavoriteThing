@@ -18,6 +18,7 @@
 #include <fstream>
 #include <windows.h>
 #include <conio.h>
+#include <cstring>
 #include <list>
 
 using namespace std;
@@ -43,7 +44,6 @@ public:
 	void captureNewBeer();
 	void showBeer();
 	int saveBeer(ofstream& outfile);
-
 	bool beerIsEqual(Beer* name);
 	friend class BeerList;
 };
@@ -66,7 +66,7 @@ public:
 	int saveBeerList(string filename);
 	int readBeerList(string filename);
 	void addNewBeer();
-	void deleteingBeer(string filename);
+	void eraseFileLine(string filename, Beer*name);
 	void searchingBeer(string filename);
 	friend class Beer;
 };
@@ -287,25 +287,28 @@ int BeerList::readBeerList(string filename)
 }
 
 //Deleting Favorite Beer
-void BeerList::deleteingBeer(string filename)
-{
-	//need to be able to unquie id input
-	string line, input;
-	cout << "Please enter the name you want to delete" << endl;
-	getline(cin, input);
-	ofstream myfile(filename, ios::trunc);
-	if (myfile)
-	{
-		for (int i = 0; i < numrecords; i++)
-		{
-			
-			list[i] = list[i + 1];
-			list[numrecords - 1] = 0;
-			numrecords++;
-		}
-		myfile.close();
+void BeerList::eraseFileLine(string filename, Beer*name) {
+	string line;
+	string eraseLine;
+	ifstream fin;
+
+	cout << "Please choose a beer to delete: ";
+	getline(cin, eraseLine);
+	fin.open(filename, ios::app);
+	ofstream temp; // contents of path must be copied to a temp file then renamed back to the path file
+	temp.open("temp.txt");
+
+	while (getline(fin, line)) {
+		if (line != name->beerName) // write all lines to temp other than the line marked fro erasing
+			temp << line << std::endl;
 	}
 
+	temp.close();
+	fin.close();
+
+	const char * p = filename.c_str(); // required conversion for remove and rename functions
+	remove(p);
+	rename("temp.txt", p);
 }
 
 //Searching Favorite Beer
@@ -314,18 +317,16 @@ void BeerList::searchingBeer(string filename)
 	ifstream fileInput;
 	fileInput.open(filename);
 	string line, search;
-	cout << "Please enter the term to search: ";
+	cout << "Please enter the Beer to search: ";
 	getline(cin, search);
 	for (int i = 0; getline(fileInput, line); i++)
 	{
+		
 		if (line.find(search) != string::npos)
 		{
-			cout << "found: " << search << " on line: " << i << endl;
+			cout << "Found: " << search << " on line: " << i << endl;
 		}
-		else
-		{
-			cout << "Error! Not found on Line" << i << endl;
-		}
+		
 	}
 }
 
@@ -360,6 +361,6 @@ int main()
 	my.saveBeerList(filename);
 	my.showBeerList();
 	my.searchingBeer(filename);
-	my.deleteingBeer(filename);
+	my.eraseFileLine(filename);
 	return 0;
 }
