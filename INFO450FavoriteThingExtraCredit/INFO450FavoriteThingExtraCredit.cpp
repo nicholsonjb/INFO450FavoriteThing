@@ -18,7 +18,7 @@
 #include <fstream>
 #include <windows.h>
 #include <conio.h>
-#include <cstring>
+#include <vector>
 #include <list>
 
 using namespace std;
@@ -289,44 +289,28 @@ int BeerList::readBeerList(string filename)
 //Deleting Favorite Beer
 void BeerList::deletesBeer(string filename)
 {
-	string name, brewer, tname;
-	int style, x = 0; // x - "counter" to check if user entered wrong name
+	Beer* mybeer;
+	mybeer = new Beer();
+	string answer;
+	bool foundIt = true;
 
+	ifstream fin;
+	fin.open(filename, ios::trunc);
 
-
-	ifstream beer(filename);
-	ofstream temp("temp.txt"); // temp file for input of every student except the one user wants to delete
-
-
-	cout << "-------------------------------------------------------------------\n\n";
-
-	cout << "Enter name of the beer you want to erase from file >" << endl;
-	cin >> tname;
-
-	//ifstream students("students.txt");
-	//ofstream temp("temp.txt"); // temp file for input of every student except the one user wants to delete
-
-	while (beer >> name >> brewer >> style)
+	cout << "Which Beer do you want to remove? ";
+	getline(cin, answer);
+	
+	for (int i = 0; i < numrecords; i++)
 	{
-		if (tname != name) { // if there are students with different name, input their data into temp file
-			temp << name << ' ' << brewer << ' ' << style << endl;
+		if (mybeer->beerName == answer)
+		{
+			list[i] = list[i + 1];
 		}
-		if (tname == name) { // if user entered correct name, x=1 for later output message that the user data has been deleted
-			x = 1;
-		}
+		else
+			list[i - 1] = 0;
 	}
-	beer.clear(); // clear eof and fail bits
-	beer.seekg(0, ios::beg);
-	beer.close();
-	temp.close();
-	remove("BrewList.txt");
-	rename("temp.txt", "BrewList.txt");
-	if (x == 0) { // x was set to 0 at start, so if it didn't change, it means user entered the wrong name
-		cout << "There is no beer with name you entered." << endl;
-	}
-	else { // x is not 0, it means user entered the correct name, print message that students data has been deleted
-		cout << "Beer data has been deleted." << endl;
-	}
+		
+	fin.close();
 }
 
 //Searching Favorite Beer
@@ -379,6 +363,6 @@ int main()
 	my.saveBeerList(filename);
 	my.showBeerList();
 	my.searchingBeer(filename);
-	my.deletesBeer(filename);
+	my.deletesBeer( filename);
 	return 0;
 }
