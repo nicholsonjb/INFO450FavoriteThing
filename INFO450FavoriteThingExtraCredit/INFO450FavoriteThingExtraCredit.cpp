@@ -66,7 +66,7 @@ public:
 	int saveBeerList(string filename);
 	int readBeerList(string filename);
 	void addNewBeer();
-	void eraseFileLine(string filename, Beer*name);
+	void deletesBeer(string filename);
 	void searchingBeer(string filename);
 	friend class Beer;
 };
@@ -287,28 +287,46 @@ int BeerList::readBeerList(string filename)
 }
 
 //Deleting Favorite Beer
-void BeerList::eraseFileLine(string filename, Beer*name) {
-	string line;
-	string eraseLine;
-	ifstream fin;
+void BeerList::deletesBeer(string filename)
+{
+	string name, brewer, tname;
+	int style, x = 0; // x - "counter" to check if user entered wrong name
 
-	cout << "Please choose a beer to delete: ";
-	getline(cin, eraseLine);
-	fin.open(filename, ios::app);
-	ofstream temp; // contents of path must be copied to a temp file then renamed back to the path file
-	temp.open("temp.txt");
 
-	while (getline(fin, line)) {
-		if (line != name->beerName) // write all lines to temp other than the line marked fro erasing
-			temp << line << std::endl;
+
+	ifstream beer(filename);
+	ofstream temp("temp.txt"); // temp file for input of every student except the one user wants to delete
+
+
+	cout << "-------------------------------------------------------------------\n\n";
+
+	cout << "Enter name of the beer you want to erase from file >" << endl;
+	cin >> tname;
+
+	//ifstream students("students.txt");
+	//ofstream temp("temp.txt"); // temp file for input of every student except the one user wants to delete
+
+	while (beer >> name >> brewer >> style)
+	{
+		if (tname != name) { // if there are students with different name, input their data into temp file
+			temp << name << ' ' << brewer << ' ' << style << endl;
+		}
+		if (tname == name) { // if user entered correct name, x=1 for later output message that the user data has been deleted
+			x = 1;
+		}
 	}
-
+	beer.clear(); // clear eof and fail bits
+	beer.seekg(0, ios::beg);
+	beer.close();
 	temp.close();
-	fin.close();
-
-	const char * p = filename.c_str(); // required conversion for remove and rename functions
-	remove(p);
-	rename("temp.txt", p);
+	remove("BrewList.txt");
+	rename("temp.txt", "BrewList.txt");
+	if (x == 0) { // x was set to 0 at start, so if it didn't change, it means user entered the wrong name
+		cout << "There is no beer with name you entered." << endl;
+	}
+	else { // x is not 0, it means user entered the correct name, print message that students data has been deleted
+		cout << "Beer data has been deleted." << endl;
+	}
 }
 
 //Searching Favorite Beer
@@ -361,6 +379,6 @@ int main()
 	my.saveBeerList(filename);
 	my.showBeerList();
 	my.searchingBeer(filename);
-	my.eraseFileLine(filename);
+	my.deletesBeer(filename);
 	return 0;
 }
