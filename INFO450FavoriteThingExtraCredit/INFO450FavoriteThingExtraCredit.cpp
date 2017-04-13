@@ -323,11 +323,11 @@ int main()
 	error = my.readBeerList(filename);
 	if (error)
 	{
-		cout << "Cannot read list" << endl;
+		cout << "Cannot read list." << endl;
 		cout << "Possible issues:" << endl;
-		cout << "1. Incorrect file name" << endl;
-		cout << "2. File does not exist " << endl;
-		cout << "3. Incorrect file path" << endl;
+		cout << "1. Incorrect file name." << endl;
+		cout << "2. File does not exist. " << endl;
+		cout << "3. Incorrect file path." << endl;
 
 		return 0;
 	}
