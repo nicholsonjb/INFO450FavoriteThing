@@ -301,6 +301,7 @@ void BeerList::deleteingBeer(string filename)
 			
 			list[i] = list[i + 1];
 			list[numrecords - 1] = 0;
+			numrecords++;
 		}
 		myfile.close();
 	}
