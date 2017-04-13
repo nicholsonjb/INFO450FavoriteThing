@@ -10,7 +10,7 @@
 //Purpose: My Favorite Things are those things that people like to do, 
 //eat, or drink …  The intent of this assignment is to build a tracker for o
 //ne of your favorite things.This tracker will allow you to build and maintain a list of 
-//your favorite things and save them to a file.
+//your favorite things and save them to a file. 
 
 #include "stdafx.h"
 #include <iostream>
@@ -43,6 +43,7 @@ public:
 	void captureNewBeer();
 	void showBeer();
 	int saveBeer(ofstream& outfile);
+
 	bool beerIsEqual(Beer* name);
 	friend class BeerList;
 };
@@ -65,8 +66,9 @@ public:
 	int saveBeerList(string filename);
 	int readBeerList(string filename);
 	void addNewBeer();
-	/*void deleteingBeer(string filename, Beer* name);*/
-	void searchingBeer();
+	void deleteingBeer(string filename);
+	void searchingBeer(string filename);
+	friend class Beer;
 };
 
 
@@ -210,13 +212,13 @@ void BeerList::addNewBeer()
 void BeerList::getUserInput()
 {
 	string answer = "Y";
-	cout << "enter item Y/N?" << endl;
+	cout << "Enter item Y/N?" << endl;
 	getline(cin, answer);
 	while (answer == "Y" || answer == "y")
 	{
 		Beer* myBeer = new Beer();
 		addNewBeer();
-		cout << "enter another item Y/N?" << endl;
+		cout << "Enter another item Y/N?" << endl;
 		getline(cin, answer);
 	}
 }
@@ -285,24 +287,47 @@ int BeerList::readBeerList(string filename)
 }
 
 //Deleting Favorite Beer
-//void BeerList::deleteingBeer(string filename, Beer* name)
-//{
-//	string line, ans;
-//	cout << "Please enter the name of the beer you want to delete: " << endl;
-//	getline(cin, ans);
-//	ifstream myfile(filename);
-//	ofstream temp;
-//	myfile.open(filename);
-//	temp.open("temp.txt");
-//	while (getline(myfile, line))
-//	{
-//		if (line != name)
-//			temp << line << endl;
-//	}
-//	cout << "The record with the name " << name << "has been deleted if it existed" << endl;
-//	myfile.close();
-//	temp.close();
-//}
+void BeerList::deleteingBeer(string filename)
+{
+	//need to be able to unquie id input
+	string line, input;
+	cout << "Please enter the name you want to delete" << endl;
+	getline(cin, input);
+	ofstream myfile(filename, ios::trunc);
+	if (myfile)
+	{
+		for (int i = 0; i < numrecords; i++)
+		{
+			
+			list[i] = list[i + 1];
+			list[numrecords - 1] = 0;
+			numrecords++;
+		}
+		myfile.close();
+	}
+
+}
+
+//Searching Favorite Beer
+void BeerList::searchingBeer(string filename)
+{
+	ifstream fileInput;
+	fileInput.open(filename);
+	string line, search;
+	cout << "Please enter the term to search: ";
+	getline(cin, search);
+	for (int i = 0; getline(fileInput, line); i++)
+	{
+		if (line.find(search) != string::npos)
+		{
+			cout << "found: " << search << " on line: " << i << endl;
+		}
+		else
+		{
+			cout << "Error! Not found on Line" << i << endl;
+		}
+	}
+}
 
 
 int main()
@@ -334,6 +359,7 @@ int main()
 	my.getUserInput();
 	my.saveBeerList(filename);
 	my.showBeerList();
-	/*my.deleteingBeer(filename);*/
+	my.searchingBeer(filename);
+	my.deleteingBeer(filename);
 	return 0;
 }
